@@ -1,0 +1,40 @@
+package com.privatearea.config;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+import org.springframework.web.servlet.support.AbstractDispatcherServletInitializer;
+
+@Configuration
+@EnableWebMvc
+public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitializer{
+
+	@Override
+	protected Class<?>[] getRootConfigClasses() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/*STEP_2 : Set general configuration class*/
+	@Override
+	protected Class<?>[] getServletConfigClasses() {
+		/* Here we specify the most important class of our application, 
+		 * that is the general configuration class our application will refer to.
+		 */
+		return new Class[] { WebApplicationContextConfig.class };
+	}
+	
+	/*STEP_1 : Set base Url that our application / server will manage*/
+	@Override
+	protected String[] getServletMappings() {
+		/*
+		 * Indicates that any calls to the server, which have as their base url "/",
+		 * must be handled by our Dispatcher Servlet. 
+		 * You can change the url to indicate different calls to handle,
+		 * example of microservices management
+		 */
+		return new String[] { "/" };
+	}
+
+
+}
