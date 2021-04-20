@@ -7,6 +7,8 @@ import javax.annotation.processing.Generated;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -28,14 +30,23 @@ public class User implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
+	@Column(name = "userid")
 	private Long userID;
 	
-	@Column
+	@Column(name = "name")
 	private String name;
-//	private String username;
-//	private String mail;
-//	private String phone_number;
+	
+	@Column(name = "surname")
+	private String surname;
+	
+	@Column(name = "mail")
+	private String mail;
+	
+	@Column(name = "cell")
+	private String phone_number;
+	
+//	@Temporal(TemporalType.DATE)
+//	@Column(name = "birthday")
 //	private Date birthday;
 
 }

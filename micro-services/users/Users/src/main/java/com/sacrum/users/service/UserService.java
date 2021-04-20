@@ -23,5 +23,10 @@ public class UserService implements IUserService{
 	public void InsertUser(User user) {
 		userRepository.InsertUser(user);
 	}
+
+	@Override
+	public User getUserById(String userid) {
+		return userRepository.getUserById(userid);
+	}
 	
 }

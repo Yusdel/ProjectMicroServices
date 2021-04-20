@@ -21,8 +21,11 @@ public class UserMapper implements RowMapper<User>{
 		
 		User user = new User();
 		try {
-			user.setUserID(rs.getLong("userID"));
+			user.setUserID(rs.getLong("userid"));
 			user.setName(rs.getString("name"));
+			user.setSurname(rs.getString("surname"));
+			user.setMail(rs.getString("mail"));
+			user.setPhone_number(rs.getString("cell"));
 		} catch (Exception e) {
 			System.out.println("Errore in UserMapper.mapRow: " + e);
 		}

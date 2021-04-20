@@ -32,7 +32,7 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
 		 * "/" = qualsiasi chiamata in arrivo verrà gestita da questo Dispatcher Servlet 
 		 * "/api/" = qualsiasi chiamata con base URL "/api/" 
 		 */
-		return new String[] { "/api/users/" };
+		return new String[] { "/" };
 	}
 
 }
