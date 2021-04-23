@@ -26,6 +26,9 @@ public class UserMapper implements RowMapper<User>{
 			user.setSurname(rs.getString("surname"));
 			user.setMail(rs.getString("mail"));
 			user.setPhone_number(rs.getString("cell"));
+			user.setBirthday(rs.getDate("birthday"));
+			user.setFk_cvitae(rs.getLong("fk_cvitae"));
+			
 		} catch (Exception e) {
 			System.out.println("Errore in UserMapper.mapRow: " + e);
 		}

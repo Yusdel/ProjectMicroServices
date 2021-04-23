@@ -28,5 +28,20 @@ public class UserService implements IUserService{
 	public User getUserById(String userid) {
 		return userRepository.getUserById(userid);
 	}
+
+	@Override
+	public List<User> getUserByFilter(User user) {
+		return userRepository.getUserByFilter(user);
+	}
+
+	@Override
+	public void UpdateUser(User user) {
+		userRepository.UpdateUser(user);
+	}
+
+	@Override
+	public void deleteUserById(String id) {
+		userRepository.deleteUserById(id);
+	}
 	
 }

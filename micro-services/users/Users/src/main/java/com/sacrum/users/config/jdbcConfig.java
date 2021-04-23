@@ -55,6 +55,8 @@ public class jdbcConfig {
 	
 	/*
 	 * Bean per la gestione delle transazioni all'interno della nostra applicazione
+	 * Per l'uso di JPA e Hibernate si delibara la gestione delle transazione all'Hibernate,
+	 * quindi commentare questo Bean
 	 */
 	@Bean
 	public DataSourceTransactionManager transactionManager() {
