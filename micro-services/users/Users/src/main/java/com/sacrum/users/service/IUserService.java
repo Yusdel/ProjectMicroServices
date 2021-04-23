@@ -17,7 +17,7 @@ public interface IUserService {
 	 * @param userid
 	 * @return
 	 */
-	User getUserById(String userid);
+	User getUserById(Long userid);
 	
 	/**
 	 * check user by Id or Name and Surname
@@ -34,9 +34,9 @@ public interface IUserService {
 	
 	/**
 	 * Update User
-	 * @param user
+	 * @param
 	 */
-	void UpdateUser(User user);
+	int UpdateUser(User user);
 	
 	/**
 	 * Delete user by ID

@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
+ * https://www.baeldung.com/spring-exceptions-json
  * Classe di gestione GENERALE delle eccezioni dei servizi REST del Server
  * 
  * @ControllerAdvice : notazione necessaria
+ * @ExceptionHandler : Override exception 
  * 
  * @author Yusdel Morales Guevara
  *

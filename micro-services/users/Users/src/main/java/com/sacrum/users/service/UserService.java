@@ -25,7 +25,7 @@ public class UserService implements IUserService{
 	}
 
 	@Override
-	public User getUserById(String userid) {
+	public User getUserById(Long userid) {
 		return userRepository.getUserById(userid);
 	}
 
@@ -35,8 +35,8 @@ public class UserService implements IUserService{
 	}
 
 	@Override
-	public void UpdateUser(User user) {
-		userRepository.UpdateUser(user);
+	public int UpdateUser(User user) {
+		return userRepository.UpdateUser(user);
 	}
 
 	@Override

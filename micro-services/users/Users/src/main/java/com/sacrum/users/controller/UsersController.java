@@ -23,20 +23,20 @@ import com.sacrum.users.domain.User;
 import com.sacrum.users.exception.NotFoundException;
 import com.sacrum.users.service.UserService;
 
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * ResponseEntity<class> trasforma la classe passata nel Diamond Operator (< >) in JSON. 
  * ( Di norma si passano le clasi Entity o Domain )
  * 
  * NotFoundException : Custom exception
+ * String.format() : require class ResourceBundleMessageSource instantiated in application. 
+ * ( I created it in MessageSource <Bean> )
  * 
  * @author Yusdel Morales Guevara
  *
  */
 
 @RestController
-@Slf4j
 @RequestMapping("/api/users")
 public class UsersController {
 	
@@ -59,14 +59,13 @@ public class UsersController {
 	}
 	
 	@RequestMapping(value = "/{userID}", produces = ("application/json"))
-	public ResponseEntity<User> getUserByID(@PathVariable("userID") String userID) throws NotFoundException{
+	public ResponseEntity<User> getUserByID(@PathVariable("userID") Long userID) throws NotFoundException{
 		
 		User user = userService.getUserById(userID);
 		
 		if(user==null) {
-			//return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
-			
-			String errMsg = String.format("Non risulta uno user registrato con ID: %s", userID);
+			/* require Bean MessageSource */
+			String errMsg = String.format("Non risultano utenti registrati con ID: %s", userID);
 			throw new NotFoundException(errMsg);
 		}
 		
@@ -81,16 +80,20 @@ public class UsersController {
 		List<User> checkUser = userService.getUserByFilter(user);
 		
 		if(checkUser != null && checkUser.size()>0) {
-			String MsgErr = String.format("Utente %s presente in anagrafica! "
-					+ "Impossibile utilizzare il metodo POST!", user.getName());
-			
-			log.warn(MsgErr);
+			String MsgErr = String.format("Utente %s %s già presente in anagrafica! "
+					+ "Impossibile utilizzare il metodo POST!", new Object[] {user.getName(), user.getSurname()});
 			
 			throw new Exception(MsgErr);
 		}
 		
-		userService.InsertUser(user);
+		try {
+			userService.InsertUser(user);
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
 		
+		
+		/* START - how to create http response */
 		HttpHeaders headers = new HttpHeaders();
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -104,36 +107,42 @@ public class UsersController {
 				" eseguito con successo");
 
 		return new ResponseEntity<>(responseNode, headers, HttpStatus.CREATED);
+		/* END */
 	}
 	
 	@RequestMapping(value = "/modify", method = RequestMethod.PUT)
 	public ResponseEntity<?> updateArt(@RequestBody User user,
-				UriComponentsBuilder ucBuilder) throws Exception  
-	{
+				UriComponentsBuilder ucBuilder) throws Exception  {
 		
-		List<User> checkArt =  userService.getUserByFilter(user);
+		/* CHECK if user EXISTS */
+		User checkArt =  userService.getUserById(user.getUserID());
 
 		if (checkArt == null)
 		{
-			String MsgErr = String.format("Articolo %s non presente in anagrafica! "
-					+ "Impossibile utilizzare il metodo PUT", user.getName());
-			
-			log.warn(MsgErr);
+			String MsgErr = String.format("Non è stato trovato alcun utente con id %d! "
+					+ "Impossibile utilizzare il metodo PUT", user.getUserID());
 			
 			throw new Exception(MsgErr);
 		}
 		
+		/* UPDATE User */
+		int res = userService.UpdateUser(user);
+		if( res < 0 ) {
+			String MsgErr = String.format("È avvenuto un errore durante "
+					+ "l'aggiornamento dell'utente con id: %d", user.getUserID());
+			
+			throw new Exception(MsgErr);
+		}
+		/* CREATE Success HTTP Response */
 		HttpHeaders headers = new HttpHeaders();
 		ObjectMapper mapper = new ObjectMapper();
 		
 		headers.setContentType(MediaType.APPLICATION_JSON);
 
 		ObjectNode responseNode = mapper.createObjectNode();
-
-		userService.UpdateUser(user);
 		
 		responseNode.put("code", HttpStatus.OK.toString());
-		responseNode.put("message", "Modifica Articolo " + user.getName() + " Eseguita Con Successo");
+		responseNode.put("message", "Modifica Eseguita Con Successo");
 
 		return new ResponseEntity<>(responseNode, headers, HttpStatus.CREATED);
 	}

@@ -13,14 +13,14 @@ public interface IUserRepository {
 	/**
 	 * Select Single User
 	 * @param id
-	 * @return
+	 * @return user or null
 	 */
-	public User getUserById(String id);
+	public User getUserById(Long id);
 	
 	/**
 	 * Get users by Name, Surname, email
-	 * @param User
-	 * @return List
+	 * @param
+	 * @return List of user or null
 	 */
 	public List<User> getUserByFilter(User user);
 	
@@ -37,10 +37,11 @@ public interface IUserRepository {
 	public void InsertUser(User user);
 	
 	/**
-	 * Update User
+	 * 
 	 * @param user
+	 * @return > 0 = done, -1 error
 	 */
-	public void UpdateUser(User user);
+	public int UpdateUser(User user);
 	
 	/**
 	 * Delete user by ID

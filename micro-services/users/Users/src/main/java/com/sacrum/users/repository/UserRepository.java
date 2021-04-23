@@ -1,22 +1,18 @@
 package com.sacrum.users.repository;
 
 import java.sql.Types;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.sacrum.users.domain.User;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * https://javabydeveloper.com/spring-jdbctemplate-in-clause-with-list-of-values/
@@ -26,7 +22,6 @@ import lombok.extern.slf4j.Slf4j;
  */
 
 @Repository
-@Slf4j
 public class UserRepository implements IUserRepository{
 	
 	/**
@@ -44,10 +39,9 @@ public class UserRepository implements IUserRepository{
 	private NamedParameterJdbcTemplate jdbcNamedPar;
 	
 	@Override
-	public User getUserById(String userID) {
+	public User getUserById(Long userID) {
 		// JdbcTemplate parameters on query example
 		User user;
-		Integer id = Integer.valueOf(userID);
 		/**
 		 * PostgreSQL nomina le sue tabelle con " " per questo nella creazione della queryString 
 		 * bisogna usare il carattere di escape \ per passare i doppi apici.
@@ -56,13 +50,12 @@ public class UserRepository implements IUserRepository{
 		try {
 			
 			user = jdbcTemplate.query(JPQL, 
-					new Object[] {id}, //parametri
+					new Object[] {userID}, //parametri
 					new int[] {Types.INTEGER}, //tipo dei parametri
 					new UserMapper()).get(0);
 			
 		} catch (Exception e) {
 			user = null;
-			log.info(e.getMessage());
 		}
 		
 		return user;
@@ -75,31 +68,25 @@ public class UserRepository implements IUserRepository{
 		
 		MapSqlParameterSource inQueryParams = new MapSqlParameterSource();
 
-		String sql = "SELECT * FROM \"User\" WHERE ";
+		String sql = "SELECT * FROM \"User\" WHERE (name = :name AND surname = :surname)";
 			
-		if (user.getName()!=null && !user.getName().isEmpty()) {
-			sql += " name = :name AND";
-			inQueryParams.addValue("name", user.getName(), Types.VARCHAR);
-		}
 
-		if (user.getSurname()!=null && !user.getSurname().isEmpty()) {
-			sql += " surname = :surname AND";
-			inQueryParams.addValue("surname" , user.getSurname(), Types.VARCHAR);
-		}
+		inQueryParams.addValue("name", user.getName(), Types.VARCHAR);
+		inQueryParams.addValue("surname" , user.getSurname(), Types.VARCHAR);
 		
 		if (user.getMail()!=null && !user.getMail().isEmpty()) {
-			sql += " surname = :mail AND";
+			sql += " OR mail = :mail";
 			inQueryParams.addValue("mail" , user.getMail(), Types.VARCHAR);
 		}
 			
-		sql += " true LIMIT 1"; // LIMIT to get only 1 result
+		sql += " LIMIT 1"; // LIMIT to get only 1 result
 		
 		try {
 			
 			ret = jdbcNamedPar.query(sql, inQueryParams, new UserMapper());
 			
 		} catch (Exception e) {
-			log.info("Errore in " + this.getClass() + ".getUserByFilter()");
+			// nothing
 		}
 		
 		return ret;
@@ -118,55 +105,71 @@ public class UserRepository implements IUserRepository{
 	@Override
 	public void InsertUser(User user) {
 		
-		String sql = "INSERT INTO \"User\"(name, surname, mail, cell) VALUES ( :name, :surname, :mail, :cell )";
+		String sql = "INSERT INTO \"User\"(name, surname, mail, cell, birthday) VALUES ( :name, :surname, :mail, :cell, :birthday )";
 		try {
 			
 			SqlParameterSource namedParameters = new MapSqlParameterSource()
 					.addValue("name", user.getName(), Types.VARCHAR)
 					.addValue("surname", user.getSurname(), Types.VARCHAR)
 					.addValue("mail", user.getMail(), Types.VARCHAR)
-					.addValue("cell", user.getPhone_number(), Types.VARCHAR);
+					.addValue("cell", user.getPhone_number(), Types.VARCHAR)
+					.addValue("birthday", user.getBirthday(), Types.DATE);
 				
 			jdbcNamedPar.update(sql, namedParameters);
 			
 		} catch (Exception e) {
-			log.info("errore!");
+			// returns the exception to the caller
+			throw e;
 		}	
 	}
 	
 	@Override
-	public void UpdateUser(User user) {
+	public int UpdateUser(User user) {
+		int ret = 10;
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>(); // method 2
 		
 		String sql = "UPDATE \"User\" SET ";
 			
 		// null params control
-		if (user.getMail()!=null || user.getMail().isEmpty()) {
+		if (user.getMail()!=null && !user.getMail().isEmpty()) {
 			sql += " mail = :mail";
 			paramMap.put("mail", user.getMail());
 		}
 			
-		if (user.getName()!=null || user.getName().isEmpty()) {
+		if (user.getName()!=null && !user.getName().isEmpty()) {
 			sql += " name = :name";
 			paramMap.put("name", user.getName());
 		}
 			
-		if (user.getSurname()!=null || user.getSurname().isEmpty()) {
+		if (user.getSurname()!=null && !user.getSurname().isEmpty()) {
 			sql += " surname = :surname";
 			paramMap.put("surname", user.getSurname());
 		}
 			
-		if (user.getPhone_number()!=null || user.getPhone_number().isEmpty()) {
+		if (user.getPhone_number()!=null && !user.getPhone_number().isEmpty()) {
+			sql += " cell = :phone_number";
+			paramMap.put("phone_number", user.getPhone_number());
+		}
+		
+		if (user.getBirthday()!=null) {
 			sql += " cell = :phone_number";
 			paramMap.put("phone_number", user.getPhone_number());
 		}
 			
 		sql += " WHERE userid = :userid";
 		paramMap.put("userid", user.getUserID());
-			
-		jdbcTemplate.update(sql, paramMap);
 		
+		try {
+			
+			jdbcNamedPar.update(sql, paramMap);
+			
+		} catch (Exception e) {
+			
+			ret = -1;
+		}
+		
+		return ret;
 	}
 
 	@Override

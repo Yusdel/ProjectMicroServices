@@ -3,6 +3,8 @@ package com.sacrum.users.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 
 /**
@@ -23,6 +25,8 @@ public class User implements Serializable {
 	private String surname;
 	private String mail;
 	private String phone_number;
+	
+	@JsonFormat(pattern = "dd-MM-yyyy")
 	private Date birthday;
 	private Long fk_cvitae;
 

@@ -21,7 +21,7 @@ public class UserNotFoundException extends RuntimeException{
 		this.userID = userid;
 	}
 
-	public String getCodArt()
+	public String getUserID()
 	{
 		return userID;
 	}
