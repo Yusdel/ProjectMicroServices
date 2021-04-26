@@ -1,14 +1,24 @@
 'use strict';
 
 // Declare app level module which depends on views, and core components
-angular.module('HomeSacrum', [
+angular.module('Sacrum', [
   'ngRoute',
-  'HomeSacrum.view1',
-  'HomeSacrum.view2',
-  'HomeSacrum.version'
+  'ngMaterial',
+  'ngMessages',
+  'View1'
 ]).
   config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
-    $locationProvider.hashPrefix('!');
+    $locationProvider.hashPrefix('');
 
-    $routeProvider.otherwise({ redirectTo: '/view1' });
+    $routeProvider
+      .otherwise({ redirectTo: '/' });
+
+    /**
+     * example router
+     * $routeProvider
+     * .when('/home', handler)
+     * .when('/home/users', handler)
+     * .otherwise({redirectTo:'/home'});
+     */
+
   }]);

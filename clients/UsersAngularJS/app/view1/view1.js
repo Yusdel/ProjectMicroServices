@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('HomeSacrum.view1', ['ngRoute'])
+angular.module('View1', ['ngRoute'])
 
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/view1', {
@@ -9,24 +9,9 @@ angular.module('HomeSacrum.view1', ['ngRoute'])
     });
   }])
 
-  .controller('View1Ctrl', [function () {
-
-  }]);
-
-angular.module('whiteframeDirectiveUsage', ['ngMaterial'])
-  .controller('DemoCtrl', function ($interval) {
-    this.elevation = 1;
-    this.showFrame = 3;
-
-    this.nextElevation = function () {
-      if (++this.elevation == 25) {
-        this.elevation = 1;
-      }
-    };
-
-    $interval(this.nextElevation.bind(this), 500);
-
-    this.toggleFrame = function () {
-      this.showFrame = this.showFrame == 3 ? -1 : 3;
-    };
+  .controller('View1Ctrl', function ($scope) {
+    $scope.utente = { nome: "Marco", cognome: "Kitty" };
+    $scope.hello = function () {
+      return "Hello kitty!! " + $scope.utente.nome;
+    }
   });
