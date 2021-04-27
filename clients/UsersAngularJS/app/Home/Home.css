@@ -1,0 +1,22 @@
+/*https://dev.to/lennythedev/css-gotcha-how-to-fill-page-with-a-div-270j*/
+.iconAngularSvg md-icon {
+    margin: 2px;
+    width: 96px;
+    height: 96px;
+  }
+
+.iconAngularSvg {
+    border: 1px solid red;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}
+
+.homePage {
+    height:100%;
+    border: 2px solid white;
+}
+
+.rowUsers{
+    height: 82vh;
+}

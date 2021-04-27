@@ -1,13 +1,12 @@
 {
+  //https://jshint.com/docs/
   "strict": "global",
   "globals": {
     // AngularJS
     "angular": false,
-
     // AngularJS mocks
     "module": false,
     "inject": false,
-
     // Jasmine
     "jasmine": false,
     "describe": false,
@@ -15,7 +14,6 @@
     "afterEach": false,
     "it": false,
     "expect": false,
-
     // Protractor
     "browser": false,
     "element": false,

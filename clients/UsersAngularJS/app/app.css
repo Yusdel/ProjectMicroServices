@@ -1,26 +1,13 @@
-/* app css stylesheet */
+/**
+ * Imports all scss components file
+ * https://sass-lang.com/documentation/at-rules/import
+ */
 
-.menu {
-  list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 2em;
-  padding: 0 0 0.5em;
+@import "./Home/Home.css";
+
+body {
+    height: 100%;
+    overflow-y: transparent;
+    overflow-x: hidden; /* hides the horizontal scroll bar */
+    border: 1px solid red;
 }
-
-.menu:before {
-  content: "[";
-}
-
-.menu:after {
-  content: "]";
-}
-
-.menu > li {
-  display: inline;
-}
-
-.menu > li + li:before {
-  content: "|";
-  padding-right: 0.3em;
-}
-
