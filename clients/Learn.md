@@ -95,6 +95,7 @@
     <option ng-repeat="row in elenco | filter:'r'" value="row.nome">{{row.cognome}}</option>
 
 **filtri standard**
+
     {{"PrImO TesTiO" | uppercase | lowercase}} *I filtri vengono applicati in sequenza, quindi prima applica upper e poi lower!*
     {{"Secondo Filtro" | limitTo:7}} *first 7 characters*
     {{3.5478955445221554892 | limitTo:15}} *first 15 characters*
