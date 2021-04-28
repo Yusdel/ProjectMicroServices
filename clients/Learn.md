@@ -234,21 +234,21 @@ angular.module("<name od module>",[])
 
 *$apply accetta una funzione come parametro, e chiama il $digest.*
 
-.controller("myCtrl", function($scope){
-    $scope.password = generatePassword();
-
-    document.querySelector("<id_tag>").addEventListener("click", function(){
+    .controller("myCtrl", function($scope){
         $scope.password = generatePassword();
 
-        $scope.$digest(); // or $scope.$apply();
+        document.querySelector("<id_tag>"). addEventListener("click", function(){
+            $scope.password = generatePassword();
+
+            $scope.$digest(); // or $scope.$apply();
+        })
     })
-})
 
-function generatePassword(){
-    //code
-    return val;
-}
+    function generatePassword(){
+        //code
+        return val;
+    }
 
-$scope.$apply(function(){
-    $scope.data.myVar = "another value";
-})
+    $scope.$apply(function(){
+        $scope.data.myVar = "another value";
+    })
