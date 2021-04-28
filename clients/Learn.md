@@ -75,34 +75,39 @@
 
 **Filtrare i dati**
  *ordine naturale*
+
     <option ng-repeat="row in elenco | orderBy:'cognome'" value="row.nome">{{row.cognome}}</option>
 
  *ordine inverso*
+
     <option ng-repeat="row in elenco | orderBy:'-cognome'" value="row.nome">{{row.cognome}}</option>
 
  *row number limit*
+
     <option ng-repeat="row in elenco | orderBy:'-cognome' | limitTo=5" value="row.nome">{{row.cognome}}</option>
 
  *filter:{} nel caso seguente: elenco dei nomi che contengono la lettera 'r'*
+
     <option ng-repeat="row in elenco | filter:{nome = 'r'}" value="row.nome">{{row.cognome}}</option>
 
  *filter:{} nel caso seguente: elenco degli oggetti/row che contengono la lettera 'r'*
+
     <option ng-repeat="row in elenco | filter:'r'" value="row.nome">{{row.cognome}}</option>
 
 **filtri standard**
- {{"PrImO TesTiO" | uppercase | lowercase}} *I filtri vengono applicati in sequenza, quindi prima applica upper e poi lower!*
- {{"Secondo Filtro" | limitTo:7}} *first 7 characters*
- {{3.5478955445221554892 | limitTo:15}} *first 15 characters*
- {{3.17489517986415646987 | number:15}} *same of limitTo*
- {{3.17489517986415646987 | number:0}} *non stampa le cifre decimali*
- {{120.48 | currency}} *per le valute, di default viene stampato il dollaro $*
- {{120.48 | currency:"€":0}} *valuta euro senza cifre decimali*
- {{data | date:"fullDate"}}
- {{data | date:"longDate"}}
- {{data | date:"medium"}}
- {{data | date:"short"}}
- {{data | date:"shortTime"}}
- {{data | date:"EEEE dd-MM-yyyy HH:mm:ss"}}
+    {{"PrImO TesTiO" | uppercase | lowercase}} *I filtri vengono applicati in sequenza, quindi prima applica upper e poi lower!*
+    {{"Secondo Filtro" | limitTo:7}} *first 7 characters*
+    {{3.5478955445221554892 | limitTo:15}} *first 15 characters*
+    {{3.17489517986415646987 | number:15}} *same of limitTo*
+    {{3.17489517986415646987 | number:0}} *non stampa le cifre decimali*
+    {{120.48 | currency}} *per le valute, di default viene stampato il dollaro $*
+    {{120.48 | currency:"€":0}} *valuta euro senza cifre decimali*
+    {{data | date:"fullDate"}}
+    {{data | date:"longDate"}}
+    {{data | date:"medium"}}
+    {{data | date:"short"}}
+    {{data | date:"shortTime"}}
+    {{data | date:"EEEE dd-MM-yyyy HH:mm:ss"}}
 
 **Filtri Personalizzati**
  *Si dichiarano come i controllers*
