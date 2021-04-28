@@ -3,7 +3,8 @@
 angular.module('Home', [
   'ngRoute',
   'ngMaterial',
-  'ngMessages'
+  'ngMessages',
+  'UserHttp'
 ])
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/', {
@@ -29,12 +30,20 @@ angular.module('Home', [
     });
 
   })
-  .controller('HomeCtrl', function ($scope, $interval) {
+  .controller('HomeCtrl', function ($scope, $interval, $location, $rootScope, getAllUsers) {
+    $rootScope.loggedIn = false; //global variable for "login"
+
+    debugger;
+    let io;
+    io = getAllUsers.data();
+    debugger;
+    //start not used
     this.elevation = 3;
     this.showFrame = 6;
     let larg = window.screen.availWidth;
     let alt = window.screen.availHeight;
     $scope.size = { "alt": alt, "larg": larg };
+    $scope.info = { "name": "", "psw": "" };
 
     this.nextElevation = function () {
       if (++this.elevation == 25) {
@@ -47,4 +56,18 @@ angular.module('Home', [
     this.toggleFrame = function () {
       this.showFrame = this.showFrame == 6 ? -1 : 6;
     };
+    //end not used here
+
+    /**
+     * on click event get user informations
+     * and redirect to view with data
+     */
+    $scope.getUserInfo = function () {
+      if ($scope.info.name == 'admin' && $scope.info.psw == '123abc') {
+        $location.path('/info');
+        $rootScope.loggedIn = true;
+      } else {
+        alert("hey");
+      }
+    }
   });

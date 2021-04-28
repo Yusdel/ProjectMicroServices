@@ -49,7 +49,9 @@
 
 **ng-model**: *Usato sugli elementi di input, definisce un modello di dati associato alla casella di testo. Associa al campo input una variabile con id di riferimento ng-model="var_name". Per la stampa di una variabile si usano l'annotazione {{ var_name }}.*
 
-**$scope**: *Oggetto con le proprietà e i metodi disponibili, è disponibile sia per le view sia per i controller.*
+**$scope**: *Oggetto con le proprietà e i metodi disponibili, è disponibile sia per le view sia per i controller. È una variabile locale.*
+
+**$rootScope**: *Definisce una variabile Globale.*
 
 **gn-if, ng-switch**
 
@@ -143,3 +145,110 @@
  })
 
 **Note.** *Nell'uso di angular.module("app", []) ... le parentesi quadre vanno inserite solo la prima volta all'interno del singolo file, altrimenti va in conflitto. La seconda volta basta dichiarare: angular.module("app") ...*
+
+**directive: Element**
+*<Note.directive:> tipi di restrict: { 'E': element or tag, 'C': class, 'A': attribute, 'M': comment }*
+
+angular.module("<name od module>",[])
+.directive("<nome_direttiva>",function(){
+    return {
+        restrict: "E",
+        replace: true, *rimuove il tag <nome_direttiva> lasciando solo il suo contenuto ossia il template*
+        link: function(scope, element, options){
+            scope.fullName = options.first + " " + options.last;
+        },
+        template: "<h2>nome completo: {{fullName}}</h2>" *templateUrl for file html*
+    }
+})
+
+> **use** 
+>> <nome_direttiva data-first="Homer" data-last="Simpson"></nome_direttiva>
+
+**directive: Attribute**
+angular.module("<name od module>",[])
+.directive("<nome_direttiva>",function(){
+    return {
+        restrict: "A",
+        link: function(scope, element, options){
+            scope.fullName = options.first + " " + options.last;
+        },
+        template: "nome completo: {{fullName}}"
+    }
+})
+
+> **use** 
+>> <p <nome_direttiva>="" data-first="Homer" data-last="Simpson"></p>
+
+**directive: Class**
+angular.module("<name od module>",[])
+.directive("<nome_direttiva>",function(){
+    return {
+        scope: {}, *or scope: true, per evitare che venga sovrascritto nel riutilizzo.*
+        restrict: "C",
+        link: function(scope, element, options){
+            scope.fullName = options.first + " " + options.last;
+        },
+        template: "nome completo: {{fullName}}"
+    }
+})
+
+> **use** 
+>> <p class="<nome_direttiva>" data-first="Homer" data-last="Simpson"></p>
+
+**ng-model="Object.$"** *prende in considerazione tutti i campi dell'oggetto"*
+
+**http service** *chiamate API, simile alle fetch*
+
+.controller("<nome_controller>", function($scope, $http){
+    $http.get("<fetch_url>")
+        .then(function(res){
+            $scope.<nome_variabile> = res;
+        })
+})
+
+**$scope.$watch** *cattura ogni variazione dell'oggetto specificato, simile a onChange().*
+
+*watch su variabili*
+.controller(<nome_ctrl>, function($scope){
+    $scope.<name> = <value>;
+
+    $scope.$watch('<name>', function(newVal, oldVal){
+        *@param1 = nuovo valore della variabile in ascolto*
+        *@param2 = vecchio valore della variabile in ascolto*
+    })
+})
+
+*watch su oggetti, di default il parametro di ascolto sugli oggetti è impostato a false!*
+.controller(<nome_ctrl>, function($scope){
+    $scope.<name> = {<name_attr>: <value>};
+
+    $scope.$watch('<name>', function(newVal, oldVal){
+        *@param1 = nuovo valore della variabile in ascolto*
+        *@param2 = vecchio valore della variabile in ascolto*
+    }, true)
+})
+
+**$scope.$digest/$apply**
+*La funzione $digest dello scope, itera tutti gli oggetti di eventuali data-binding e controlla se una delle variabili osservate è cambiata. Se il responso è positivo allora $digest chiama una funzione listener corrispondente che effettuerà tutto il lavoro necessario, come la modifica di un testo HTML per aggiornare il nuovo valore della variabile controllata.*
+*In pratica il $digest è la funzione che attiva l'aggiornamento del data-binding. Nell'esempio sotto riportato, è NECCESSARIO chiamare manualmente il refresh del data-binding, altrimenti l'evento di click sarà catturato ma la pagina non verrà aggiornata.*
+
+*$apply accetta una funzione come parametro, e chiama il $digest.*
+
+.controller("myCtrl", function($scope){
+    $scope.password = generatePassword();
+
+    document.querySelector("<id_tag>").addEventListener("click", function(){
+        $scope.password = generatePassword();
+
+        $scope.$digest(); // or $scope.$apply();
+    })
+})
+
+function generatePassword(){
+    //code
+    return val;
+}
+
+$scope.$apply(function(){
+    $scope.data.myVar = "another value";
+})

@@ -5,8 +5,9 @@ angular.module('Sacrum', [
   'ngRoute',
   'ngMaterial',
   'ngMessages',
-  'View1',
-  'Home'
+  'Home',
+  'UserInfo',
+  'UserHttp'
 ]).
   config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
     $locationProvider.hashPrefix('');
