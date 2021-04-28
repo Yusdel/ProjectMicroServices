@@ -65,29 +65,29 @@
  > `$scope.elenco = [{nome:'John', cognome: 'Yappi'}, {nome:'Algro', cognome: 'Gubbro'}, ... ];`
  > `$scope.selectedItem = $scope.elenco[0];`*Per evitare il primo elemento blank*
  > *Nel tag <select>, la variabile selectedItem rappresenta la scelta del campo.*
- > <select ng-model="selectedItem">
- >   <option ng-repeat="row in elenco" value="row.nome">{{row.cognome}}</option>
- > </select>
+    <select ng-model="selectedItem">
+        <option ng-repeat="row in elenco" value="row.nome">{{row.cognome}}</option>
+    </select>
 
  > *Il blocco select è ottimizzabile come segue:*
- > <select ng-model="selectedItem" ng-options="row.nome group by row.cognome for row in elenco"></select>
+    <select ng-model="selectedItem" ng-options="row.nome group by row.cognome for row in elenco"></select>
  > *In questo secondo caso viene assegnato a selectedItem l'intera "row"/oggetto e non solo il nome come sopra. Inoltre viene visualizzato il nome e l'array viene raggruppato, group by, per cognome.*
 
 **Filtrare i dati**
  *ordine naturale*
- <option ng-repeat="row in elenco | orderBy:'cognome'" value="row.nome">{{row.cognome}}</option>
+    <option ng-repeat="row in elenco | orderBy:'cognome'" value="row.nome">{{row.cognome}}</option>
 
  *ordine inverso*
- <option ng-repeat="row in elenco | orderBy:'-cognome'" value="row.nome">{{row.cognome}}</option>
+    <option ng-repeat="row in elenco | orderBy:'-cognome'" value="row.nome">{{row.cognome}}</option>
 
  *row number limit*
- <option ng-repeat="row in elenco | orderBy:'-cognome' | limitTo=5" value="row.nome">{{row.cognome}}</option>
+    <option ng-repeat="row in elenco | orderBy:'-cognome' | limitTo=5" value="row.nome">{{row.cognome}}</option>
 
  *filter:{} nel caso seguente: elenco dei nomi che contengono la lettera 'r'*
- <option ng-repeat="row in elenco | filter:{nome = 'r'}" value="row.nome">{{row.cognome}}</option>
+    <option ng-repeat="row in elenco | filter:{nome = 'r'}" value="row.nome">{{row.cognome}}</option>
 
  *filter:{} nel caso seguente: elenco degli oggetti/row che contengono la lettera 'r'*
- <option ng-repeat="row in elenco | filter:'r'" value="row.nome">{{row.cognome}}</option>
+    <option ng-repeat="row in elenco | filter:'r'" value="row.nome">{{row.cognome}}</option>
 
 **filtri standard**
  {{"PrImO TesTiO" | uppercase | lowercase}} *I filtri vengono applicati in sequenza, quindi prima applica upper e poi lower!*
@@ -106,14 +106,14 @@
 
 **Filtri Personalizzati**
  *Si dichiarano come i controllers*
- <p>{{test our filter | myFilter}}</p>
+    <p>{{test our filter | myFilter}}</p>
 
- angular.module("myApp", [])
-    .filter("myFilter", function (){
-        return function(text){
-            // do something with the 'text' and return it
-        }
-    })
+    angular.module("myApp", [])
+        .filter("myFilter", function (){
+            return function(text){
+                // do something with the 'text' and return it
+            }
+        })
 
 **Services**
  *Sono dei componenti indipendenti dall'interfaccia utente, consentono di implementare la business logic. Si occupano quindi di recuperare ed elaborare i dati da trasmettere alle view (mediante i controller) per la visualizzazione.*
@@ -121,112 +121,112 @@
 
  **method A: service**
  *Nella chiamata ai servizi definiti mediante "service", Angular fornisce l'istanza della funzione associata al servizio. Nel caso sotto una istanza della funzione somma.*
- angular.module("myApp", [])
-    .service("myService", function (){
-        this.somma = function(a, b){
-            return a+b;
-        }
-    })
+    angular.module("myApp", [])
+        .service("myService", function (){
+            this.somma = function(a, b){
+                return a+b;
+            }
+        })
  
  *Quando si usano servizi definiti mediante il metodo "factory", angular fornisce direttamente il valore restituito dall'esecuzione della funzione.*
  **method B: factory**
- angular.module("myApp", [])
-    .factory("myService2", function (){
-        this.somma = function(a, b){
-            return a+b;
-        }
-    })
+    angular.module("myApp", [])
+        .factory("myService2", function (){
+            this.somma = function(a, b){
+                return a+b;
+            }
+        })
  
  **call service**
- angular.module("myApp", [])
- .controller("myCtrl", function($scope, myService, myService2){
-     $scope.x = myService.somma(4, 5);
-     $scope.y = myService2(5, 7);
- })
+    angular.module("myApp", [])
+    .controller("myCtrl", function($scope, myService, myService2){
+        $scope.x = myService.somma(4, 5);
+        $scope.y = myService2(5, 7);
+    })
 
 **Note.** *Nell'uso di angular.module("app", []) ... le parentesi quadre vanno inserite solo la prima volta all'interno del singolo file, altrimenti va in conflitto. La seconda volta basta dichiarare: angular.module("app") ...*
 
 **directive: Element**
 *<Note.directive:> tipi di restrict: { 'E': element or tag, 'C': class, 'A': attribute, 'M': comment }*
 
-angular.module("<name od module>",[])
-.directive("<nome_direttiva>",function(){
-    return {
-        restrict: "E",
-        replace: true, *rimuove il tag <nome_direttiva> lasciando solo il suo contenuto ossia il template*
-        link: function(scope, element, options){
-            scope.fullName = options.first + " " + options.last;
-        },
-        template: "<h2>nome completo: {{fullName}}</h2>" *templateUrl for file html*
-    }
-})
+    angular.module("<name od module>",[])
+    .directive("<nome_direttiva>",function(){
+        return {
+            restrict: "E",
+            replace: true, *rimuove il tag <nome_direttiva> lasciando solo il suo contenuto ossia il template*
+            link: function(scope, element, options){
+                scope.fullName = options.first + " " + options.last;
+            },
+            template: "<h2>nome completo: {{fullName}}</h2>" *templateUrl for file html*
+        }
+    })
 
 > **use** 
->> <nome_direttiva data-first="Homer" data-last="Simpson"></nome_direttiva>
+    <nome_direttiva data-first="Homer" data-last="Simpson"></nome_direttiva>
 
 **directive: Attribute**
-angular.module("<name od module>",[])
-.directive("<nome_direttiva>",function(){
-    return {
-        restrict: "A",
-        link: function(scope, element, options){
-            scope.fullName = options.first + " " + options.last;
-        },
-        template: "nome completo: {{fullName}}"
-    }
-})
+    angular.module("<name od module>",[])
+    .directive("<nome_direttiva>",function(){
+        return {
+            restrict: "A",
+            link: function(scope, element, options){
+                scope.fullName = options.first + " " + options.last;
+            },
+            template: "nome completo: {{fullName}}"
+        }
+    })
 
 > **use** 
->> <p <nome_direttiva>="" data-first="Homer" data-last="Simpson"></p>
+    <p <nome_direttiva>="" data-first="Homer" data-last="Simpson"></p>
 
 **directive: Class**
-angular.module("<name od module>",[])
-.directive("<nome_direttiva>",function(){
-    return {
-        scope: {}, *or scope: true, per evitare che venga sovrascritto nel riutilizzo.*
-        restrict: "C",
-        link: function(scope, element, options){
-            scope.fullName = options.first + " " + options.last;
-        },
-        template: "nome completo: {{fullName}}"
-    }
-})
+    angular.module("<name od module>",[])
+    .directive("<nome_direttiva>",function(){
+        return {
+            scope: {}, *or scope: true, per evitare che venga sovrascritto nel riutilizzo.*
+            restrict: "C",
+            link: function(scope, element, options){
+                scope.fullName = options.first + " " + options.last;
+            },
+            template: "nome completo: {{fullName}}"
+        }
+    })
 
 > **use** 
->> <p class="<nome_direttiva>" data-first="Homer" data-last="Simpson"></p>
+    <p class="<nome_direttiva>" data-first="Homer" data-last="Simpson"></p>
 
 **ng-model="Object.$"** *prende in considerazione tutti i campi dell'oggetto"*
 
 **http service** *chiamate API, simile alle fetch*
 
-.controller("<nome_controller>", function($scope, $http){
-    $http.get("<fetch_url>")
-        .then(function(res){
-            $scope.<nome_variabile> = res;
-        })
-})
+    .controller("<nome_controller>", function($scope, $http){
+        $http.get("<fetch_url>")
+            .then(function(res){
+                $scope.<nome_variabile> = res;
+            })
+    })
 
 **$scope.$watch** *cattura ogni variazione dell'oggetto specificato, simile a onChange().*
 
 *watch su variabili*
-.controller(<nome_ctrl>, function($scope){
-    $scope.<name> = <value>;
+    .controller(<nome_ctrl>, function($scope){
+        $scope.<name> = <value>;
 
-    $scope.$watch('<name>', function(newVal, oldVal){
-        *@param1 = nuovo valore della variabile in ascolto*
-        *@param2 = vecchio valore della variabile in ascolto*
+        $scope.$watch('<name>', function(newVal, oldVal){
+            *@param1 = nuovo valore della variabile in ascolto*
+            *@param2 = vecchio valore della variabile in ascolto*
+        })
     })
-})
 
 *watch su oggetti, di default il parametro di ascolto sugli oggetti è impostato a false!*
-.controller(<nome_ctrl>, function($scope){
-    $scope.<name> = {<name_attr>: <value>};
+    .controller(<nome_ctrl>, function($scope){
+        $scope.<name> = {<name_attr>: <value>};
 
-    $scope.$watch('<name>', function(newVal, oldVal){
-        *@param1 = nuovo valore della variabile in ascolto*
-        *@param2 = vecchio valore della variabile in ascolto*
-    }, true)
-})
+        $scope.$watch('<name>', function(newVal, oldVal){
+            *@param1 = nuovo valore della variabile in ascolto*
+            *@param2 = vecchio valore della variabile in ascolto*
+        }, true)
+    })
 
 **$scope.$digest/$apply**
 *La funzione $digest dello scope, itera tutti gli oggetti di eventuali data-binding e controlla se una delle variabili osservate è cambiata. Se il responso è positivo allora $digest chiama una funzione listener corrispondente che effettuerà tutto il lavoro necessario, come la modifica di un testo HTML per aggiornare il nuovo valore della variabile controllata.*
