@@ -126,12 +126,10 @@
  *Sono dei componenti indipendenti dall'interfaccia utente, consentono di implementare la business logic. Si occupano quindi di recuperare ed elaborare i dati da trasmettere alle view (mediante i controller) per la visualizzazione.*
  *In breve: si crea un blocco di codice come servizio, che può essere richiamato all'interno dell'applicazione. I servizi sono oggetti "singleton" esiste quindi una sola istanza poi accessibile da tutti i componenti.*
 
----
-
 ## Service Class
 
- **[method A: service]**  
  *Nella chiamata ai servizi definiti mediante "service", Angular fornisce l'istanza della funzione associata al servizio. Nel caso sotto una istanza della funzione somma.*
+
     angular.module("myApp", [])
         .service("myService", function (){
             this.somma = function(a, b){
