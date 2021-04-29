@@ -137,6 +137,11 @@
             }
         })
 
+    angular.module("myApp", [])
+        .controller("myCtrl", function($scope, myService){
+            $scope.x = myService.somma(4, 5);
+        })
+
 ## Factory Class
 
 **[method B: factory]** *Quando si usano servizi definiti mediante il metodo "factory", angular fornisce direttamente il valore restituito dall'esecuzione della funzione.*
@@ -151,8 +156,7 @@
 *call service*
 
     angular.module("myApp", [])
-    .controller("myCtrl", function($scope, myService, myService2){
-        $scope.x = myService.somma(4, 5);
+    .controller("myCtrl", function($scope, myService2){
         $scope.y = myService2(5, 7);
     })
 
@@ -180,7 +184,7 @@
             }
         }
 
-*modulo B riceve i dati da A e li elabora*
+*modulo B chiamato dalla funzione getInfo mediante il redirect*
 
     angular.module("B", ['myFactory'])
         .controller($scope, Info){
@@ -189,10 +193,11 @@
 
 **Note.** *Nell'uso di angular.module("app", []) ... le parentesi quadre vanno inserite solo la prima volta all'interno del singolo file, altrimenti va in conflitto. La seconda volta basta dichiarare: angular.module("app") ...*
 
----
+# Directives
 
-**directive: Element**
-*<Note.directive:> tipi di restrict: { 'E': element or tag, 'C': class, 'A': attribute, 'M': comment }*
+**Note:** *tipi di restrict: { 'E': element or tag, 'C': class, 'A': attribute, 'M': comment }*
+
+## Element
 
     angular.module("<name od module>",[])
     .directive("<nome_direttiva>",function(){
@@ -206,10 +211,12 @@
         }
     })
 
-> **use** 
+**use** 
+
     <nome_direttiva data-first="Homer" data-last="Simpson"></nome_direttiva>
 
-**directive: Attribute**
+## Attribute
+
     angular.module("<name od module>",[])
     .directive("<nome_direttiva>",function(){
         return {
@@ -221,10 +228,12 @@
         }
     })
 
-> **use** 
+**use** 
+
     <p <nome_direttiva>="" data-first="Homer" data-last="Simpson"></p>
 
-**directive: Class**
+## Class
+
     angular.module("<name od module>",[])
     .directive("<nome_direttiva>",function(){
         return {
@@ -237,7 +246,8 @@
         }
     })
 
-> **use** 
+**use** 
+
     <p class="<nome_direttiva>" data-first="Homer" data-last="Simpson"></p>
 
 **ng-model="Object.$"** *prende in considerazione tutti i campi dell'oggetto"*
@@ -254,6 +264,7 @@
 **$scope.$watch** *cattura ogni variazione dell'oggetto specificato, simile a onChange().*
 
 *watch su variabili*
+
     .controller(<nome_ctrl>, function($scope){
         $scope.<name> = <value>;
 
@@ -264,6 +275,7 @@
     })
 
 *watch su oggetti, di default il parametro di ascolto sugli oggetti è impostato a false!*
+
     .controller(<nome_ctrl>, function($scope){
         $scope.<name> = {<name_attr>: <value>};
 
@@ -273,7 +285,8 @@
         }, true)
     })
 
-**$scope.$digest/$apply**
+# $scope.$digest/$apply
+
 *La funzione $digest dello scope, itera tutti gli oggetti di eventuali data-binding e controlla se una delle variabili osservate è cambiata. Se il responso è positivo allora $digest chiama una funzione listener corrispondente che effettuerà tutto il lavoro necessario, come la modifica di un testo HTML per aggiornare il nuovo valore della variabile controllata.*
 *In pratica il $digest è la funzione che attiva l'aggiornamento del data-binding. Nell'esempio sotto riportato, è NECCESSARIO chiamare manualmente il refresh del data-binding, altrimenti l'evento di click sarà catturato ma la pagina non verrà aggiornata.*
 
