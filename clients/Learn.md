@@ -121,11 +121,16 @@
             }
         })
 
-**Services**
+# Services
+
  *Sono dei componenti indipendenti dall'interfaccia utente, consentono di implementare la business logic. Si occupano quindi di recuperare ed elaborare i dati da trasmettere alle view (mediante i controller) per la visualizzazione.*
  *In breve: si crea un blocco di codice come servizio, che può essere richiamato all'interno dell'applicazione. I servizi sono oggetti "singleton" esiste quindi una sola istanza poi accessibile da tutti i componenti.*
 
- **method A: service**
+---
+
+## Service Class
+
+ **[method A: service]**  
  *Nella chiamata ai servizi definiti mediante "service", Angular fornisce l'istanza della funzione associata al servizio. Nel caso sotto una istanza della funzione somma.*
     angular.module("myApp", [])
         .service("myService", function (){
@@ -133,9 +138,11 @@
                 return a+b;
             }
         })
- 
- *Quando si usano servizi definiti mediante il metodo "factory", angular fornisce direttamente il valore restituito dall'esecuzione della funzione.*
- **method B: factory**
+
+## Factory Class
+
+**[method B: factory]** *Quando si usano servizi definiti mediante il metodo "factory", angular fornisce direttamente il valore restituito dall'esecuzione della funzione.*
+
     angular.module("myApp", [])
         .factory("myService2", function (){
             this.somma = function(a, b){
@@ -143,14 +150,48 @@
             }
         })
  
- **call service**
+*call service*
+
     angular.module("myApp", [])
     .controller("myCtrl", function($scope, myService, myService2){
         $scope.x = myService.somma(4, 5);
         $scope.y = myService2(5, 7);
     })
 
+*Il modo più comune di utilizzare questa "classe" è quella di intermediatore per il passaggio dei dati tra i moduli! Nell'esempio seguente abbiamo 2 moduli, e un modulo Factory che farà da contenitore dati per il passaggio.*
+
+*Factory Module*
+
+    angular.module("myFactory", [])
+        .factory("Info", function(){
+            let savedInfo = {};
+
+            function set(data){ savedInfo = data };
+            function get() { return savedInfo };
+
+            return { set: set, get: get }
+        })
+
+*modulo A contenitore della <funzione> onclick che ci reindirizza al modulo B passandogli i dati*
+
+    angular.module("A", ['myFactory'])
+        .controller($scope, Info){
+            $scope.getInfo = function(data) {
+                Info.set(data);
+                $location.path("/showInfo");
+            }
+        }
+
+*modulo B riceve i dati da A e li elabora*
+
+    angular.module("B", ['myFactory'])
+        .controller($scope, Info){
+            $scope.info = Info.get();
+        }
+
 **Note.** *Nell'uso di angular.module("app", []) ... le parentesi quadre vanno inserite solo la prima volta all'interno del singolo file, altrimenti va in conflitto. La seconda volta basta dichiarare: angular.module("app") ...*
+
+---
 
 **directive: Element**
 *<Note.directive:> tipi di restrict: { 'E': element or tag, 'C': class, 'A': attribute, 'M': comment }*

@@ -1,53 +1,31 @@
-<div ng-controller="HomeCtrl" class="homePage">
-    <!--<md-content class="md-padding" flex="100">-->
+<div class="homePage">
     <div layout="row" layout-align="center center" class="rowUsers">
-        <md-card flex ng-click="getUserInfo()">
+        <md-card flex ng-click="getUserInfo(row, info.name, info.psw)" ng-repeat="row in users track by $index">
             <input type="hidden" ng-model="info.name" ng-init="info.name='admin'" ng-value="info.name"
                 name="name"></input>
             <input type="hidden" ng-model="info.psw" ng-init="info.psw='123abc'" ng-value="info.psw" name="psw"></input>
-            <h2>Card title #1</h2>
+            <h2>{{row.name}} {{row.surname}}</h2>
             <md-card-content>
-                <p>Some content</p>
-            </md-card-content>
-        </md-card>
-        <md-card flex>
-            <h2>Card title #2</h2>
-            <md-card-content>
-                <p>Some content</p>
-            </md-card-content>
-        </md-card>
-        <md-card flex>
-            <h2>Card title #2</h2>
-            <md-card-content>
-                <p>Some content</p>
+                <p>{{row.mail}}</p>
             </md-card-content>
         </md-card>
     </div>
-    <!--</md-content>-->
-
-    <!--<div class="padded" md-whiteframe="{{height}}" layout="column" layout-align="center center" ng-init="height = 3"
-            ng-mouseenter="height = 6" ng-mouseleave="height = 3">
-
-            <span>md-whiteframe="{{height}}"</span>
-            <span>Hover to toggle</span>
-            <span ng-model="size">{{size.alt}} , {{size.larg}}</span>
-        </div>
-        <div class="padded" md-whiteframe="{{height}}" layout="column" layout-align="center center" ng-init="height = 3"
-            ng-mouseenter="height = 6" ng-mouseleave="height = 3">
-            <span>md-whiteframe="{{height}}"</span>
-            <span>Hover to toggle</span>
-            <span ng-model="size">{{size.alt}} , {{size.larg}}</span>
-        </div>
-        <div class="padded" md-whiteframe="{{height}}" layout="column" layout-align="center center" ng-init="height = 3"
-            ng-mouseenter="height = 6" ng-mouseleave="height = 3">
-            <span>md-whiteframe="{{height}}"</span>
-            <span>Hover to toggle</span>
-            <span ng-model="size">{{size.alt}} , {{size.larg}}</span>
-        </div>
-    </div>-->
-
     <span class="iconAngularSvg">
         <md-icon md-svg-icon="./img/icons/sets/symbol-icons/angularjs/angularjs-480.svg" class=".s48">
         </md-icon>
     </span>
 </div>
+
+<!-- <md-card flex>
+            <h2>Card title #2</h2>
+            <md-card-content>
+                <p>Some content</p>
+                <p>{{test}}</p>
+            </md-card-content>
+        </md-card>
+        <md-card flex>
+            <h2>Card title #2</h2>
+            <md-card-content>
+                <p>Some content</p>
+            </md-card-content>
+        </md-card>-->

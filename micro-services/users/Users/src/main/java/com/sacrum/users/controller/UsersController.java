@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +32,8 @@ import com.sacrum.users.service.UserService;
  * NotFoundException : Custom exception
  * String.format() : require class ResourceBundleMessageSource instantiated in application. 
  * ( I created it in MessageSource <Bean> )
+ * 
+ * CORS: https://www.baeldung.com/spring-cors
  * 
  * @author Yusdel Morales Guevara
  *
@@ -146,5 +149,4 @@ public class UsersController {
 
 		return new ResponseEntity<>(responseNode, headers, HttpStatus.CREATED);
 	}
-	
 }

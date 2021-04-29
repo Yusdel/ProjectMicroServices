@@ -1,6 +1,6 @@
 'use strict';
 
-let uinfo = angular.module('UserInfo', ['ngRoute']);
+let uinfo = angular.module('UserInfo', ['ngRoute', 'UserHttp']);
 
 uinfo.config(function ($routeProvider) {
   $routeProvider.when('/info/', {
@@ -19,6 +19,7 @@ uinfo.config(function ($routeProvider) {
   })
 })
 
-uinfo.controller('UserInfoCtrl', function ($scope) {
-  // code
+uinfo.controller('UserInfoCtrl', function ($scope, userData) {
+  debugger;
+  $scope.user = userData.get();
 })
