@@ -51,3 +51,12 @@ angular.module('Home', [
       }
     }
   });
+
+/**
+ * ANIMATION
+ * https://gamedev.stackexchange.com/questions/75880/how-to-move-an-object-using-x-and-y-coordinates-in-javascript
+ * https://www.darkcode.info/2020/07/awesome-cursor-animation-on-mousemove.html
+ * https://www.youtube.com/watch?v=eZSxp8738AM
+ *
+ * https://filipows.github.io/angular-animations/
+ */

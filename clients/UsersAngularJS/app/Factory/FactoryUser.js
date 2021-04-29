@@ -43,6 +43,7 @@ ft.factory('usersFactory', function ($http) {
 
 /**
  * https://www.c-sharpcorner.com/article/pass-data-from-one-page-to-other-using-factory-or-service-in-angularjs/
+ * per effettuare il passagio dei dati da un model/view all'altro/a
  */
 ft.factory("userData", function () {
   let savedData = {};

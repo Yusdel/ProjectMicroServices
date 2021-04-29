@@ -34,9 +34,6 @@
 ## CodeLab Tutorial
  *https://codelabs.developers.google.com/codelabs/mdc-101-web/#1*
 
-
-
-
 ## tutorials
 
  - https://www.youtube.com/watch?v=6weXKhZ5G08&list=PLGeQyNDhU6x0jHcgYEl4fhpuTUgOY4X-x&index=13
@@ -57,21 +54,31 @@
 
 **ng-class**: *Permette di impostare dinamicamente delle classi css ad un elemento HTML.*
 
-**ng-click**: *cattura l'evento di click `<button ngClick="myFunc()"></button>`*
+**ng-click**: *cattura l'evento di click "<button ngClick="myFunc()"></button>"*
 
 **ng-repeat, ng-options**: *Permette di ciclare un oggetto dinamicamente all'interno dell'HTML. Ng-repeat definisce inoltre una variabile di scope ($index) che tiene traccia dell'indice corrente. Inseribile all'interno di un tag <select> per la popolazione del campo.*
- > `<li ng-repeat="row in elenco">{{row.nome}}</li>`
- > *Oggetto nel controller*
- > `$scope.elenco = [{nome:'John', cognome: 'Yappi'}, {nome:'Algro', cognome: 'Gubbro'}, ... ];`
- > `$scope.selectedItem = $scope.elenco[0];`*Per evitare il primo elemento blank*
- > *Nel tag <select>, la variabile selectedItem rappresenta la scelta del campo.*
+
+    <li ng-repeat="row in elenco">{{row.nome}}</li>
+
+ *Oggetto nel controller*
+
+    $scope.elenco = [{nome:'John', cognome: 'Yappi'}, {nome:'Algro', cognome: 'Gubbro'}, ... ];
+
+*Per evitare il primo elemento blank*
+
+    $scope.selectedItem = $scope.elenco[0];
+
+*Nel tag <select>, la variabile selectedItem rappresenta la scelta del campo.*
+
     <select ng-model="selectedItem">
         <option ng-repeat="row in elenco" value="row.nome">{{row.cognome}}</option>
     </select>
 
- > *Il blocco select è ottimizzabile come segue:*
+ *Il blocco select è ottimizzabile come segue:*
+
     <select ng-model="selectedItem" ng-options="row.nome group by row.cognome for row in elenco"></select>
- > *In questo secondo caso viene assegnato a selectedItem l'intera "row"/oggetto e non solo il nome come sopra. Inoltre viene visualizzato il nome e l'array viene raggruppato, group by, per cognome.*
+
+ *In questo secondo caso viene assegnato a selectedItem l'intera "row"/oggetto e non solo il nome come sopra. Inoltre viene visualizzato il nome e l'array viene raggruppato, group by, per cognome.*
 
 **Filtrare i dati**
  *ordine naturale*
@@ -112,6 +119,7 @@
 
 **Filtri Personalizzati**
  *Si dichiarano come i controllers*
+
     <p>{{test our filter | myFilter}}</p>
 
     angular.module("myApp", [])
