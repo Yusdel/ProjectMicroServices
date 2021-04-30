@@ -1,0 +1,33 @@
+.userinfo_body {
+    height:100vh;
+    width:100%;
+    border: 1px solid white;
+    background-size:cover;
+}
+
+.example-card{
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.test{
+    padding: 10px 10px 10px 10px;
+}
+
+/**
+ * CARD styles
+ */
+md-card{
+    background-color: rgba(255, 255, 255, 0);
+    box-shadow: none;
+}
+
+md-card md-card-title-text span{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+.md-card-img{
+    border-radius:10px;
+    height:100%;
+    width:100%;
+}

@@ -1,2 +1,26 @@
-<div>hello kitty!</div>
-<p>{{user.name}}</p>
+<div ng-cloak>
+    <div class="userinfo_body" ng-style="{'background-image':'url({{imagePath}})'}">
+        <div layout="row" layout-align="start center">
+            <md-card flex="40">
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-display-2">[Claudia Longo firma]</span>
+                        <span class="md-headline">Videomaker</span>
+                        <span class="md-headline">Producer</span>
+                        <span class="md-headline">Screenwriter</span>
+                    </md-card-title-text>
+                </md-card-title>
+            </md-card>
+
+            <div flex="">
+                column 3
+            </div>
+        </div>
+    </div>
+    <div flex="25" class="test">
+        <img class="md-card-img" src="./img/Claudia/Alice-Pagani_actress_model_23.jpg" alt="">
+    </div>
+    <div layout="row" layout-align="center center">
+        <p>{{user.name}} PROVA</p>
+    </div>
+</div>

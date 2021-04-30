@@ -52,6 +52,8 @@
 
 **gn-if, ng-switch**
 
+**ng-cloak** *visualizza l'elemento solo a compilazione avvenuta durante il caricmento della pagia, evita lo sfarfallio.*
+
 **ng-class**: *Permette di impostare dinamicamente delle classi css ad un elemento HTML.*
 
 **ng-click**: *cattura l'evento di click "<button ngClick="myFunc()"></button>"*
