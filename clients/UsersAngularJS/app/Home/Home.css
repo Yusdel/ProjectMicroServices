@@ -18,9 +18,84 @@
 }
 
 .rowUsers{
-    height: 82vh;
+    position: absolute;
+    top: 35%;
+    left: 15%;
+    right: 15%;
+    /*height: 82vh*/
+    border: 1px solid red;
 }
 
 md-card {
     cursor: pointer;
+    border-radius: 30px;
 }
+
+/*
+ * Animation Cards
+ */
+
+ .card-body {
+     /*transition: transform 1s;*/
+     transition: box-shadow 500ms;
+     box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+     transition: 500ms;
+ }
+
+ .card-body:hover {
+     transform: scale(1.0);
+     box-shadow: 0px 5px 13px 1px rgba(0, 0, 0, 0.541);
+ }
+
+ card-body.ng-animate {
+     transition: 1s;
+ }
+
+ /*
+  * base status progressive bar
+  */
+ .row-bar {
+    position: absolute;
+    top: 57%;
+    left: 15%;
+    right: 15%;
+    /*height: 82vh*/
+    border: 1px solid red;
+ }
+
+ .circle-control {
+     border: 1px solid white;
+     height: 1.5rem;
+     width: 1.5rem;
+     border-radius: 1rem;
+     position: fixed;
+     margin-top: -5px;
+ }
+
+ .line-bar{
+     border: 2px solid blue;
+     width: 100%;
+ }
+
+ .line-arrows{
+     border: 1px solid white;
+     position: fixed;
+     height:0.5rem;
+     width:0.5rem;
+ }
+
+ /*
+  * Animation progressive bar
+  */
+
+ /*.circle-control {
+    transition: transform 1s;
+ }
+
+ .circle-control:hover {
+    transform: translate(50px, 0);
+ }
+
+ circle-control.ng-animate {
+    transition: 1s;
+ }*/

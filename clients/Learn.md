@@ -7,6 +7,10 @@
 ### AngularJS Best Practice
  **https://www.toptal.com/angular-js/tips-and-practices**
 
+ ### Code examples
+
+ - https://demo.mobiscroll.com/v4/angularjs/cards/video#
+
  - https://material.angularjs.org/latest/getting-started
 
  - https://v7.material.angular.io/components/menu/overview
@@ -320,3 +324,9 @@
     $scope.$apply(function(){
         $scope.data.myVar = "another value";
     })
+
+# On Load document
+
+    $scope.$on('$viewContentLoaded', function() {
+        //call it here
+    });

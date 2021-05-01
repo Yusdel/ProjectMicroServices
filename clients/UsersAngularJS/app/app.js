@@ -7,7 +7,8 @@ angular.module('Sacrum', [
   'ngMessages',
   'Home',
   'UserInfo',
-  'UserHttp'
+  'UserHttp',
+  'draggableModule'
 ]).
   config([
     '$locationProvider',

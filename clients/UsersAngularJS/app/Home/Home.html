@@ -1,6 +1,7 @@
 <div class="homePage">
-    <div layout="row" layout-align="center center" class="rowUsers">
-        <md-card flex ng-click="getUserInfo(row, info.name, info.psw)" ng-repeat="row in users track by $index">
+    <div ng-mousemove="onMouse()" layout="row" layout-align="center center" class="rowUsers">
+        <md-card class="card-body" flex ng-click="getUserInfo(row, info.name, info.psw)"
+            ng-repeat="row in users track by $index">
             <input type="hidden" ng-model="info.name" ng-init="info.name='admin'" ng-value="info.name"
                 name="name"></input>
             <input type="hidden" ng-model="info.psw" ng-init="info.psw='123abc'" ng-value="info.psw" name="psw"></input>
@@ -9,6 +10,11 @@
                 <p>{{row.mail}}</p>
             </md-card-content>
         </md-card>
+    </div>
+    <div layout="row" class="row-bar" layout-align="center center">
+        <span draggable class="circle-control" data-posX={{posX}} id="circle"></span>
+        <span class="line-arrows"></span>
+        <span class="line-bar"></span>
     </div>
     <span class="iconAngularSvg">
         <md-icon md-svg-icon="./img/icons/sets/symbol-icons/angularjs/angularjs-480.svg" class=".s48">

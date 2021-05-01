@@ -4,7 +4,8 @@ angular.module('Home', [
   'ngRoute',
   'ngMaterial',
   'ngMessages',
-  'UserHttp'
+  'UserHttp',
+  'draggableModule'
 ])
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/', {
@@ -12,14 +13,38 @@ angular.module('Home', [
       controller: 'HomeCtrl'
     });
   }])
-  .controller('HomeCtrl', function ($scope, $interval, $location, $rootScope, usersFactory, userData) {
+  .controller('HomeCtrl', function ($scope, $location, $interval, $rootScope, usersFactory, userData) {
     $rootScope.loggedIn = false; //global variable for "login"
 
+    /*
     usersFactory.getAllUser().then(function (res) {
       $scope.users = res.data;
     }, function (err) {
       alert(err)
-    })
+    })*/
+
+    /**
+     * ResizeObserver row-line
+     * get the viewport resize event
+     * after load page
+     */
+    $scope.$on('$viewContentLoaded', function () {
+      const obss = document.querySelector('.row-bar');
+      const obs = document.querySelector('.line-bar');
+      const circ = document.querySelector('.circle-control');
+      let observer = new ResizeObserver(function (entries) {
+        entries.forEach(function (entry) {
+          circ.style.left = (obs.offsetWidth / 2 + obss.offsetLeft - 10) + 'px';
+        })
+      })
+      observer.observe(obs);
+    });
+
+    $scope.users = [
+      { "name": "Yusdel", "surname": "Morales", "email": "blabla@io.it" },
+      { "name": "Claudia", "surname": "Longo", "email": "blabla@io.it" },
+      { "name": "Aurora", "surname": "Longo", "email": "blabla@io.it" }
+    ]
 
     /**
      * on click event get user informations
@@ -34,7 +59,14 @@ angular.module('Home', [
         alert("hey");
       }
     }
+
+    let interv = $interval;
+
+    $scope.onMouse = function (interv) {
+      SwipeCardAnimation(interv);
+    }
   });
+
 
 /**
  * ANIMATION
@@ -44,3 +76,18 @@ angular.module('Home', [
  *
  * https://filipows.github.io/angular-animations/
  */
+
+const SwipeCardAnimation = function (interv) {
+  let cards = document.querySelectorAll('.card-body');
+  //https://docs.angularjs.org/api/ng/service/$interval#!
+  interv(function () {
+    angular.forEach(cards, function (card, key) {
+      //get position of current cards
+
+      //check position compared to row container
+
+      //move card
+      console.log(card);
+    })
+  }, 1000);
+}
