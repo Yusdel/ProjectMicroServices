@@ -29,6 +29,8 @@
 md-card {
     cursor: pointer;
     border-radius: 30px;
+    position: relative;
+    display: inline-block;
 }
 
 /*

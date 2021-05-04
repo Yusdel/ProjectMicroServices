@@ -13,9 +13,8 @@ angular.module('Home', [
       controller: 'HomeCtrl'
     });
   }])
-  .controller('HomeCtrl', function ($scope, $location, $interval, $rootScope, usersFactory, userData) {
+  .controller('HomeCtrl', function ($scope, $location, $window, $rootScope, usersFactory, userData) {
     $rootScope.loggedIn = false; //global variable for "login"
-
     /*
     usersFactory.getAllUser().then(function (res) {
       $scope.users = res.data;
@@ -41,9 +40,9 @@ angular.module('Home', [
     });
 
     $scope.users = [
-      { "name": "Yusdel", "surname": "Morales", "email": "blabla@io.it" },
+      { "name": "Marco", "surname": "Morales", "email": "blabla@io.it" },
       { "name": "Claudia", "surname": "Longo", "email": "blabla@io.it" },
-      { "name": "Aurora", "surname": "Longo", "email": "blabla@io.it" }
+      { "name": "Aurora", "surname": "Polpetta", "email": "blabla@io.it" }
     ]
 
     /**
@@ -60,12 +59,73 @@ angular.module('Home', [
       }
     }
 
-    let interv = $interval;
+    /**
+     * Start and Stop animation Clock
+     */
+    /*let promise;
+    let stop = function () { $interval.cancel(promise); }
+    let start = function ($event) { promise = $interval(SwipeCardAnimation($event), 1000); }
 
-    $scope.onMouse = function (interv) {
-      SwipeCardAnimation(interv);
+    //cancel all possible interval and run new animation/interval
+    $scope.onMouseMouve = function ($event) { stop(); start($event); }
+
+    //stop animation/interval
+    $scope.onMouseLeave = function () { stop(); }
+
+    // stops the interval when the scope is destroyed,
+    // this usually happens when a route is changed and 
+    // the ItemsController $scope gets destroyed.
+    $scope.$on('$destroy', function () { stop(); });*/
+
+    /**
+     * END Clock
+     */
+
+    //call animation
+    $window.onload = function () {
+      //debugger;
+      let cards = document.querySelectorAll('.card-body');
+
+      let direction = {}; // direzione di movimento left - right
+      angular.forEach(cards, (card, key) => { direction[key] = 1; })
+      //global start value
+      let x = cards[0].offsetLeft;
+      let _x = x;
+      $scope.pos = {
+        "container": document.querySelector('.rowUsers').getBoundingClientRect(),
+        "mouse": {
+          "_cur": 0,
+          "_old": 0
+        },
+        "card": {
+          "x": x,
+          "_x": _x
+        },
+        "turn": direction
+      }
+    };
+
+    $scope.onMouseMove = function ($event) {
+      $scope.pos.mouse._cur = $event.clientX;
+      if ($scope.pos.mouse._cur != $scope.pos.mouse._old && $scope.pos.mouse._old != 0) {
+        //debugger;
+        /* let diff = $scope.pos.mouse._cur - $scope.pos.mouse._old;
+         if (diff > 0) {
+           $scope.pos.card.x = $scope.pos.card.x + 1;
+         }
+         else {
+           $scope.pos.card.x = $scope.pos.card.x - 1;
+         }*/
+
+        SwipeCardAnimation($scope.pos);
+      }
+
+      $scope.pos.mouse._old = $event.clientX;
     }
-  });
+
+    $scope.onMouseLeave = function () { $scope.pos.mouse._old = 0; }
+  })
+
 
 
 /**
@@ -75,19 +135,36 @@ angular.module('Home', [
  * https://www.youtube.com/watch?v=eZSxp8738AM
  *
  * https://filipows.github.io/angular-animations/
+ * //https://docs.angularjs.org/api/ng/service/$interval#!
  */
 
-const SwipeCardAnimation = function (interv) {
+const SwipeCardAnimation = function (pos) {
   let cards = document.querySelectorAll('.card-body');
-  //https://docs.angularjs.org/api/ng/service/$interval#!
-  interv(function () {
-    angular.forEach(cards, function (card, key) {
-      //get position of current cards
+  let diff = pos.mouse._cur - pos.mouse._old;
+  let turn;
+  //console.log(pos.init)
+  angular.forEach(cards, function (card, key) {
+    //check turn
+    turn = (card.offsetLeft + card.offsetWidth) - pos.container.width;
+    if (turn + 1 > 0 || card.offsetLeft - 1 < 0) { pos.turn[key] = -pos.turn[key]; }
 
-      //check position compared to row container
+    if (diff > 0) {
+      pos.card.x = pos.card.x + 1 * pos.turn[key];
+    }
+    else {
+      pos.card.x = pos.card.x - 1 * pos.turn[key];
+    }
 
-      //move card
-      console.log(card);
-    })
-  }, 1000);
+    card.style.left = pos.card.x + 'px';
+  })
+}
+
+let mouse = {
+  _x: 0,
+  _y: 0,
+  x: 0,
+  y: 0,
+  updatePosition: function (event) {
+
+  }
 }

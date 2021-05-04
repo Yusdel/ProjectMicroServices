@@ -1,5 +1,6 @@
-<div class="homePage">
-    <div ng-mousemove="onMouse()" layout="row" layout-align="center center" class="rowUsers">
+<div class="homePage" ng-init="load()">
+    <div ng-mousemove="onMouseMove($event)" ng-mouseleave="onMouseLeave()" layout="row"
+        layout-align="center space-between" class="rowUsers">
         <md-card class="card-body" flex ng-click="getUserInfo(row, info.name, info.psw)"
             ng-repeat="row in users track by $index">
             <input type="hidden" ng-model="info.name" ng-init="info.name='admin'" ng-value="info.name"
