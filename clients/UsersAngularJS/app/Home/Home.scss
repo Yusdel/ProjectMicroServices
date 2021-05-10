@@ -22,23 +22,23 @@
     top: 35%;
     left: 15%;
     right: 15%;
-    /*height: 82vh*/
+    //height: 82vh
     border: 1px solid red;
 }
-
+/*
 md-card {
     cursor: pointer;
     border-radius: 30px;
     position: relative;
     display: inline-block;
-}
+}*/
 
 /*
  * Animation Cards
  */
 
- .card-body {
-     /*transition: transform 1s;*/
+ /*.card-body {
+     //transition: transform 1s;
      transition: box-shadow 500ms;
      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
      transition: 500ms;
@@ -51,21 +51,21 @@ md-card {
 
  card-body.ng-animate {
      transition: 1s;
- }
+ }*/
 
  /*
   * base status progressive bar
   */
- .row-bar {
+ /*.row-bar {
     position: absolute;
     top: 57%;
     left: 15%;
     right: 15%;
-    /*height: 82vh*/
+    //height: 82vh
     border: 1px solid red;
- }
+ }*/
 
- .circle-control {
+ /*.circle-control {
      border: 1px solid white;
      height: 1.5rem;
      width: 1.5rem;
@@ -84,7 +84,7 @@ md-card {
      position: fixed;
      height:0.5rem;
      width:0.5rem;
- }
+ }*/
 
  /*
   * Animation progressive bar
@@ -101,3 +101,62 @@ md-card {
  circle-control.ng-animate {
     transition: 1s;
  }*/
+
+ /*
+  * CAROUSEL
+  */
+
+
+// Carousel configuration parameters
+$n: 8; // Number of images
+$item-width: 400px; // Width of an image. In the Js version this value can be a percentage
+$item-separation: 80px; // The space between the images. This will decrease the effective item width
+$viewer-distance: 500px;
+
+// Derived variables
+$theta: 2 * 3.141592653589793 / $n;
+$apothem: 482.842712474619px; // == $item-width / (2 * tan(PI / $n))
+
+.carousel {
+  padding: 20px;
+
+  perspective: $viewer-distance;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  > * {
+    flex: 0 0 auto;
+  }
+
+  figure {
+    margin: 0;
+
+    width: $item-width;
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+    transform-origin: 50% 50% (-$apothem);
+
+    img { //img
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0 $item-separation / 2;
+
+      opacity: 0.9; // Just to better illustrate the placement of the carousel sides
+
+      &:not(:first-of-type) {
+        position: absolute;
+        left: 0;
+        top: 0;
+        transform-origin: 50% 50% (-$apothem);
+      }
+
+      @for $i from 2 through $n {
+        &:nth-child(#{$i}) {
+          transform: rotateY(#{($i - 1) * $theta}rad);
+        }
+      }
+    }
+  }
+}

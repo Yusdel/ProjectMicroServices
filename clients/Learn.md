@@ -7,6 +7,10 @@
 ### AngularJS Best Practice
  **https://www.toptal.com/angular-js/tips-and-practices**
 
+
+### Directives
+**https://www.3pillarglobal.com/insights/angularjs-understanding-directive-scope/**
+
  ### Code examples
 
  - https://demo.mobiscroll.com/v4/angularjs/cards/video#
@@ -229,6 +233,10 @@
 
     <nome_direttiva data-first="Homer" data-last="Simpson"></nome_direttiva>
 
+*Note. Nel passaggio di parametri come oggetto scope i nomi devono essere così associati:*
+*scope: { miaVarName = '=', miaVarName2 = '@' , ...}*
+*<nome_direttiva mia-var-name="data" mia-var-name-2="data"></nome_direttiva>*
+
 ## Attribute
 
     angular.module("<name od module>",[])
@@ -325,8 +333,34 @@
         $scope.data.myVar = "another value";
     })
 
-# On Load document
+# $scope.on VS window.onload (On Load document)
 
     $scope.$on('$viewContentLoaded', function() {
         //call it here
     });
+
+----------------------------------------------------------------
+
+### $WATCH
+
+*https://www.sitepoint.com/mastering-watch-angularjs/*
+
+### SWAGGER
+
+*https://swagger.io/tools/swagger-ui/download/*
+
+### $q.defer or Q.defer() -> $q vs Q
+
+*https://docs.angularjs.org/api/ng/service/$q#!*
+
+### '@' '&' '=' '>'
+
+*https://itorn.net/angularjs-symbols-and-in-custom-directives-scope-binding/*
+
+# Exit from foreach
+
+*https://masteringjs.io/tutorials/fundamentals/foreach-break*
+
+### _.findWhere() & _.where
+
+https://www.sitepoint.com/building-3d-rotating-carousel-css-javascript/

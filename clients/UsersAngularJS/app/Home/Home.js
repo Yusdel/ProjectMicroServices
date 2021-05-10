@@ -83,44 +83,43 @@ angular.module('Home', [
 
     //call animation
     $window.onload = function () {
-      //debugger;
+
       let cards = document.querySelectorAll('.card-body');
 
       let direction = {}; // direzione di movimento left - right
-      angular.forEach(cards, (card, key) => { direction[key] = 1; })
+      let left = {}; // offsetLeft iniziali
+      angular.forEach(cards, (card, key) => {
+        direction[key] = 1;
+        left[key] = cards[0].offsetLeft;
+      })
       //global start value
-      let x = cards[0].offsetLeft;
-      let _x = x;
       $scope.pos = {
         "container": document.querySelector('.rowUsers').getBoundingClientRect(),
         "mouse": {
           "_cur": 0,
           "_old": 0
         },
-        "card": {
-          "x": x,
-          "_x": _x
-        },
+        "left": left,
         "turn": direction
       }
     };
 
     $scope.onMouseMove = function ($event) {
-      $scope.pos.mouse._cur = $event.clientX;
-      if ($scope.pos.mouse._cur != $scope.pos.mouse._old && $scope.pos.mouse._old != 0) {
-        //debugger;
-        /* let diff = $scope.pos.mouse._cur - $scope.pos.mouse._old;
-         if (diff > 0) {
-           $scope.pos.card.x = $scope.pos.card.x + 1;
-         }
-         else {
-           $scope.pos.card.x = $scope.pos.card.x - 1;
-         }*/
+      /* $scope.pos.mouse._cur = $event.clientX;
+       if ($scope.pos.mouse._cur != $scope.pos.mouse._old && $scope.pos.mouse._old != 0) {
+         //debugger;
+         /* let diff = $scope.pos.mouse._cur - $scope.pos.mouse._old;
+          if (diff > 0) {
+            $scope.pos.card.x = $scope.pos.card.x + 1;
+          }
+          else {
+            $scope.pos.card.x = $scope.pos.card.x - 1;
+          }*/
 
-        SwipeCardAnimation($scope.pos);
-      }
+      /* SwipeCardAnimation($scope);
+     }
 
-      $scope.pos.mouse._old = $event.clientX;
+     $scope.pos.mouse._old = $event.clientX;*/
     }
 
     $scope.onMouseLeave = function () { $scope.pos.mouse._old = 0; }
@@ -138,24 +137,37 @@ angular.module('Home', [
  * //https://docs.angularjs.org/api/ng/service/$interval#!
  */
 
-const SwipeCardAnimation = function (pos) {
+const SwipeCardAnimation = function ($scope) {
   let cards = document.querySelectorAll('.card-body');
-  let diff = pos.mouse._cur - pos.mouse._old;
-  let turn;
-  //console.log(pos.init)
-  angular.forEach(cards, function (card, key) {
-    //check turn
-    turn = (card.offsetLeft + card.offsetWidth) - pos.container.width;
-    if (turn + 1 > 0 || card.offsetLeft - 1 < 0) { pos.turn[key] = -pos.turn[key]; }
+  let turnDX;
+  let turnSX;
+  let mouseMove = $scope.pos.mouse._cur - $scope.pos.mouse._old;
 
-    if (diff > 0) {
-      pos.card.x = pos.card.x + 1 * pos.turn[key];
+  angular.forEach(cards, function (card, key) {
+    /**
+     * SET TURN
+     * SWITCH left/right movement 
+     * turnDX > 0 = la card è oltre il marigne dx
+     * turnSX < 0 = la card è oltre il margine sx
+     */
+    debugger;
+    turnDX = ((card.offsetLeft + card.offsetWidth) - $scope.pos.container.width) + 1 > 0;
+    turnSX = card.offsetLeft - 1 < 0;
+    if (turnDX || turnSX) { $scope.pos.turn[key] = -$scope.pos.turn[key]; }
+
+    /**
+     * Check mouse movement
+     * SET left position movement
+     */
+    if (mouseMove > 0) {
+      // turn cab be +1 or -1
+      $scope.pos.left[key] = $scope.pos.left[key] + $scope.pos.turn[key];
     }
     else {
-      pos.card.x = pos.card.x - 1 * pos.turn[key];
+      $scope.pos.left[key] = $scope.pos.turn[key] > 0 ? $scope.pos.left[key] - $scope.pos.turn[key] : $scope.pos.left[key] + 1;
     }
 
-    card.style.left = pos.card.x + 'px';
+    card.style.left = $scope.pos.left[key] + 'px';
   })
 }
 
