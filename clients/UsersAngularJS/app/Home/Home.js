@@ -5,7 +5,7 @@ angular.module('Home', [
   'ngMaterial',
   'ngMessages',
   'UserHttp',
-  'draggableModule'
+  'Carousel'
 ])
   .config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/', {
@@ -27,7 +27,7 @@ angular.module('Home', [
      * get the viewport resize event
      * after load page
      */
-    $scope.$on('$viewContentLoaded', function () {
+    /*$scope.$on('$viewContentLoaded', function () {
       const obss = document.querySelector('.row-bar');
       const obs = document.querySelector('.line-bar');
       const circ = document.querySelector('.circle-control');
@@ -37,10 +37,15 @@ angular.module('Home', [
         })
       })
       observer.observe(obs);
-    });
+    });*/
 
     $scope.users = [
       { "name": "Marco", "surname": "Morales", "email": "blabla@io.it" },
+      { "name": "Claudia", "surname": "Longo", "email": "blabla@io.it" },
+      { "name": "Aurora", "surname": "Polpetta", "email": "blabla@io.it" },
+      { "name": "Marco", "surname": "Morales", "email": "blabla@io.it" },
+      { "name": "Claudia", "surname": "Longo", "email": "blabla@io.it" },
+      { "name": "Claudia", "surname": "Longo", "email": "blabla@io.it" },
       { "name": "Claudia", "surname": "Longo", "email": "blabla@io.it" },
       { "name": "Aurora", "surname": "Polpetta", "email": "blabla@io.it" }
     ]
@@ -59,70 +64,9 @@ angular.module('Home', [
       }
     }
 
-    /**
-     * Start and Stop animation Clock
-     */
-    /*let promise;
-    let stop = function () { $interval.cancel(promise); }
-    let start = function ($event) { promise = $interval(SwipeCardAnimation($event), 1000); }
+    $scope.onMouseMove = function ($event) { }
 
-    //cancel all possible interval and run new animation/interval
-    $scope.onMouseMouve = function ($event) { stop(); start($event); }
-
-    //stop animation/interval
-    $scope.onMouseLeave = function () { stop(); }
-
-    // stops the interval when the scope is destroyed,
-    // this usually happens when a route is changed and 
-    // the ItemsController $scope gets destroyed.
-    $scope.$on('$destroy', function () { stop(); });*/
-
-    /**
-     * END Clock
-     */
-
-    //call animation
-    $window.onload = function () {
-
-      let cards = document.querySelectorAll('.card-body');
-
-      let direction = {}; // direzione di movimento left - right
-      let left = {}; // offsetLeft iniziali
-      angular.forEach(cards, (card, key) => {
-        direction[key] = 1;
-        left[key] = cards[0].offsetLeft;
-      })
-      //global start value
-      $scope.pos = {
-        "container": document.querySelector('.rowUsers').getBoundingClientRect(),
-        "mouse": {
-          "_cur": 0,
-          "_old": 0
-        },
-        "left": left,
-        "turn": direction
-      }
-    };
-
-    $scope.onMouseMove = function ($event) {
-      /* $scope.pos.mouse._cur = $event.clientX;
-       if ($scope.pos.mouse._cur != $scope.pos.mouse._old && $scope.pos.mouse._old != 0) {
-         //debugger;
-         /* let diff = $scope.pos.mouse._cur - $scope.pos.mouse._old;
-          if (diff > 0) {
-            $scope.pos.card.x = $scope.pos.card.x + 1;
-          }
-          else {
-            $scope.pos.card.x = $scope.pos.card.x - 1;
-          }*/
-
-      /* SwipeCardAnimation($scope);
-     }
-
-     $scope.pos.mouse._old = $event.clientX;*/
-    }
-
-    $scope.onMouseLeave = function () { $scope.pos.mouse._old = 0; }
+    $scope.onMouseLeave = function () { }
   })
 
 
@@ -137,46 +81,26 @@ angular.module('Home', [
  * //https://docs.angularjs.org/api/ng/service/$interval#!
  */
 
-const SwipeCardAnimation = function ($scope) {
-  let cards = document.querySelectorAll('.card-body');
-  let turnDX;
-  let turnSX;
-  let mouseMove = $scope.pos.mouse._cur - $scope.pos.mouse._old;
+const SwipeCardAnimation = function ($scope) { }
 
-  angular.forEach(cards, function (card, key) {
-    /**
-     * SET TURN
-     * SWITCH left/right movement 
-     * turnDX > 0 = la card è oltre il marigne dx
-     * turnSX < 0 = la card è oltre il margine sx
-     */
-    debugger;
-    turnDX = ((card.offsetLeft + card.offsetWidth) - $scope.pos.container.width) + 1 > 0;
-    turnSX = card.offsetLeft - 1 < 0;
-    if (turnDX || turnSX) { $scope.pos.turn[key] = -$scope.pos.turn[key]; }
+/**
+  * Start and Stop animation Clock
+  */
+/*let promise;
+let stop = function () { $interval.cancel(promise); }
+let start = function ($event) { promise = $interval(SwipeCardAnimation($event), 1000); }
 
-    /**
-     * Check mouse movement
-     * SET left position movement
-     */
-    if (mouseMove > 0) {
-      // turn cab be +1 or -1
-      $scope.pos.left[key] = $scope.pos.left[key] + $scope.pos.turn[key];
-    }
-    else {
-      $scope.pos.left[key] = $scope.pos.turn[key] > 0 ? $scope.pos.left[key] - $scope.pos.turn[key] : $scope.pos.left[key] + 1;
-    }
+//cancel all possible interval and run new animation/interval
+$scope.onMouseMouve = function ($event) { stop(); start($event); }
 
-    card.style.left = $scope.pos.left[key] + 'px';
-  })
-}
+//stop animation/interval
+$scope.onMouseLeave = function () { stop(); }
 
-let mouse = {
-  _x: 0,
-  _y: 0,
-  x: 0,
-  y: 0,
-  updatePosition: function (event) {
+// stops the interval when the scope is destroyed,
+// this usually happens when a route is changed and
+// the ItemsController $scope gets destroyed.
+$scope.$on('$destroy', function () { stop(); });*/
 
-  }
-}
+/**
+ * END Clock
+ */

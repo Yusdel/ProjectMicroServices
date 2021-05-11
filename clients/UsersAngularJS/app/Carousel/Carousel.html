@@ -1,0 +1,67 @@
+<div layout="row" class="carousel">
+    <figure>
+        <md-card class="card-body" ng-click="getUserInfo(row, info.name, info.psw)"
+            ng-repeat="row in users track by $index">
+            <input type="hidden" ng-model="info.name" ng-init="info.name='admin'" ng-value="info.name"
+                name="name"></input>
+            <input type="hidden" ng-model="info.psw" ng-init="info.psw='123abc'" ng-value="info.psw" name="psw"></input>
+            <h2>{{row.name}} {{row.surname}}</h2>
+            <span>
+                <p>{{row.mail}}</p>
+            </span>
+        </md-card>
+        <!--<img src="../img/Yusdel/IMG-20210203-WA0039.jpg" alt="">
+        <img src="../img/Yusdel/IMG-20210203-WA0039.jpg" alt="">
+        <img src="../img/Yusdel/IMG-20210203-WA0039.jpg" alt="">
+        <img src="../img/Yusdel/IMG-20210203-WA0039.jpg" alt="">
+        <img src="../img/Yusdel/IMG-20210203-WA0039.jpg" alt="">
+        <img src="../img/Yusdel/IMG-20210203-WA0039.jpg" alt="">
+        <img src="../img/Yusdel/IMG-20210203-WA0039.jpg" alt="">
+        <img src="../img/Yusdel/IMG-20210203-WA0039.jpg" alt="">-->
+        <!--<md-card class="card-body figure" flex ng-click="getUserInfo(row, info.name, info.psw)"
+            ng-repeat="row in users track by $index">
+            <span>
+                <input type="hidden" ng-model="info.name" ng-init="info.name='admin'" ng-value="info.name"
+                    name="name"></input>
+                <input type="hidden" ng-model="info.psw" ng-init="info.psw='123abc'" ng-value="info.psw"
+                    name="psw"></input>
+                <h2>{{row.name}} {{row.surname}}</h2>
+                <md-card-content>
+                    <p>{{row.mail}}</p>
+                </md-card-content>
+            </span>
+        </md-card>-->
+    </figure>
+    <nav>
+        <button id="wrapper" class="nav next">
+            <a href="#" class="my-super-cool-btn">
+                <div class="dots-container">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <span>Go!</span>
+            </a>
+        </button>
+        <div id="wrapper" class="nav next">
+            <a href="#" class="my-super-cool-btn ">
+                <div class="dots-container">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <span>Go!</span>
+            </a>
+        </div>
+
+        <button class="nav prev">Prev</button>
+        <button class="nav next">Next</button>
+    </nav>
+    <!--<div layout="row" class="row-bar" layout-align="center center">
+        <span draggable class="circle-control" data-posX={{posX}} id="circle"></span>
+        <span class="line-arrows"></span>
+        <span class="line-bar"></span>
+    </div>-->
+</div>

@@ -1,52 +1,7 @@
-<div class="homePage" ng-init="load()">
-    <!--<div ng-mousemove="onMouseMove($event)" ng-mouseleave="onMouseLeave()" layout="row"
-        layout-align="center space-between" class="rowUsers carousel">-->
-    <div class="carousel">
-        <figure>
-            <img src="../img/Yusdel/IMG-20210203-WA0039.jpg" alt="">
-            <img src="../img/Yusdel/IMG-20210203-WA0039.jpg" alt="">
-            <img src="../img/Yusdel/IMG-20210203-WA0039.jpg" alt="">
-            <img src="../img/Yusdel/IMG-20210203-WA0039.jpg" alt="">
-            <img src="../img/Yusdel/IMG-20210203-WA0039.jpg" alt="">
-            <img src="../img/Yusdel/IMG-20210203-WA0039.jpg" alt="">
-            <img src="../img/Yusdel/IMG-20210203-WA0039.jpg" alt="">
-            <img src="../img/Yusdel/IMG-20210203-WA0039.jpg" alt="">
-            <!--<md-card class="card-body figure" flex ng-click="getUserInfo(row, info.name, info.psw)"
-                ng-repeat="row in users track by $index">
-                <span>
-                    <input type="hidden" ng-model="info.name" ng-init="info.name='admin'" ng-value="info.name"
-                        name="name"></input>
-                    <input type="hidden" ng-model="info.psw" ng-init="info.psw='123abc'" ng-value="info.psw"
-                        name="psw"></input>
-                    <h2>{{row.name}} {{row.surname}}</h2>
-                    <md-card-content>
-                        <p>{{row.mail}}</p>
-                    </md-card-content>
-                </span>
-            </md-card>-->
-        </figure>
-    </div>
-    <div layout="row" class="row-bar" layout-align="center center">
-        <span draggable class="circle-control" data-posX={{posX}} id="circle"></span>
-        <span class="line-arrows"></span>
-        <span class="line-bar"></span>
-    </div>
+<div layout="row" flex class="homePage" ng-init="load()">
+    <carousel></carousel>
     <span class="iconAngularSvg">
         <md-icon md-svg-icon="./img/icons/sets/symbol-icons/angularjs/angularjs-480.svg" class=".s48">
         </md-icon>
     </span>
 </div>
-
-<!-- <md-card flex>
-            <h2>Card title #2</h2>
-            <md-card-content>
-                <p>Some content</p>
-                <p>{{test}}</p>
-            </md-card-content>
-        </md-card>
-        <md-card flex>
-            <h2>Card title #2</h2>
-            <md-card-content>
-                <p>Some content</p>
-            </md-card-content>
-        </md-card>-->

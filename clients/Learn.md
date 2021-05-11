@@ -364,3 +364,9 @@
 ### _.findWhere() & _.where
 
 https://www.sitepoint.com/building-3d-rotating-carousel-css-javascript/
+
+https://www.javatpoint.com/soapui
+
+### $broadcast - $emit 
+
+*https://stackoverflow.com/questions/29839917/when-to-use-scope-on-and-scope-emit-on-angular*

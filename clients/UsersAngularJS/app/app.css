@@ -2,6 +2,7 @@
  * Imports all scss components file
  * https://sass-lang.com/documentation/at-rules/import
  */
+@import url("https://fonts.googleapis.com/css?family=Montserrat:900");
 .userinfo_body {
   height: 100vh;
   width: 100%;
@@ -51,25 +52,11 @@ md-card md-card-title-text span {
 }
 
 .homePage {
-  height: 100%;
+  height: 100vh;
   border: 2px solid white;
+  z-index: -1;
 }
 
-.rowUsers {
-  position: absolute;
-  top: 35%;
-  left: 15%;
-  right: 15%;
-  border: 1px solid red;
-}
-
-/*
-md-card {
-    cursor: pointer;
-    border-radius: 30px;
-    position: relative;
-    display: inline-block;
-}*/
 /*
  * Animation Cards
  */
@@ -98,8 +85,9 @@ card-body.ng-animate {
    right: 15%;
    //height: 82vh
    border: 1px solid red;
-}*/
-/*.circle-control {
+}
+
+.circle-control {
     border: 1px solid white;
     height: 1.5rem;
     width: 1.5rem;
@@ -133,11 +121,13 @@ card-body.ng-animate {
 circle-control.ng-animate {
    transition: 1s;
 }*/
-/*
- * CAROUSEL
- */
 .carousel {
   padding: 20px;
+  position: absolute;
+  top: 30%;
+  left: 15%;
+  right: 15%;
+  border: 1px solid red;
   perspective: 500px;
   overflow: hidden;
   display: flex;
@@ -154,40 +144,323 @@ circle-control.ng-animate {
   transition: transform 0.5s;
   transform-origin: 50% 50% -482.8427124746px;
 }
-.carousel figure img {
+.carousel figure md-card.card-body {
   width: 100%;
   box-sizing: border-box;
   padding: 0 40px;
   opacity: 0.9;
 }
-.carousel figure img:not(:first-of-type) {
+.carousel figure md-card.card-body:not(:first-of-type) {
   position: absolute;
   left: 0;
   top: 0;
   transform-origin: 50% 50% -482.8427124746px;
 }
-.carousel figure img:nth-child(2) {
+.carousel figure md-card.card-body:nth-child(2) {
   transform: rotateY(0.7853981634rad);
 }
-.carousel figure img:nth-child(3) {
+.carousel figure md-card.card-body:nth-child(3) {
   transform: rotateY(1.5707963268rad);
 }
-.carousel figure img:nth-child(4) {
+.carousel figure md-card.card-body:nth-child(4) {
   transform: rotateY(2.3561944902rad);
 }
-.carousel figure img:nth-child(5) {
+.carousel figure md-card.card-body:nth-child(5) {
   transform: rotateY(3.1415926536rad);
 }
-.carousel figure img:nth-child(6) {
+.carousel figure md-card.card-body:nth-child(6) {
   transform: rotateY(3.926990817rad);
 }
-.carousel figure img:nth-child(7) {
+.carousel figure md-card.card-body:nth-child(7) {
   transform: rotateY(4.7123889804rad);
 }
-.carousel figure img:nth-child(8) {
+.carousel figure md-card.card-body:nth-child(8) {
   transform: rotateY(5.4977871438rad);
 }
+.carousel nav {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0 0;
+}
+.carousel nav button {
+  flex: 0 0 auto;
+  margin: 0 5px;
+  cursor: pointer;
+  color: #333;
+  background: none;
+  border: 1px solid;
+  letter-spacing: 1px;
+  padding: 5px 10px;
+}
 
+/*
+ * Buttons
+ */
+#wrapper {
+  width: 70px;
+  height: 70px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.my-super-cool-btn {
+  position: relative;
+  text-decoration: none;
+  color: #fff;
+  letter-spacing: 1px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.my-super-cool-btn span {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+}
+
+.my-super-cool-btn span:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: absolute;
+  border-radius: 100%;
+  border: 4px solid #1475f3;
+  box-sizing: border-box;
+  transition: all 0.85s cubic-bezier(0.25, 1, 0.33, 1);
+  box-shadow: 0 30px 85px rgba(0, 0, 0, 0.14), 0 15px 35px rgba(0, 0, 0, 0.14);
+}
+
+.my-super-cool-btn:hover span:before {
+  transform: scale(0.8);
+  box-shadow: 0 20px 55px rgba(187, 186, 186, 0.14), 0 15px 35px rgba(175, 175, 175, 0.14);
+}
+
+.my-super-cool-btn .dots-container {
+  opacity: 0;
+  animation: intro 1.6s;
+  animation-fill-mode: forwards;
+}
+
+.my-super-cool-btn .dot {
+  width: 8px;
+  height: 8px;
+  display: block;
+  background-color: #F3CF14;
+  border-radius: 100%;
+  position: absolute;
+  transition: all 0.85s cubic-bezier(0.25, 1, 0.33, 1);
+}
+
+.my-super-cool-btn .dot:nth-child(1) {
+  top: 50px;
+  left: 50px;
+  transform: rotate(-140deg);
+  animation: swag1-out 0.3s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+.my-super-cool-btn .dot:nth-child(2) {
+  top: 50px;
+  right: 50px;
+  transform: rotate(140deg);
+  animation: swag2-out 0.3s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+.my-super-cool-btn .dot:nth-child(3) {
+  bottom: 50px;
+  left: 50px;
+  transform: rotate(140deg);
+  animation: swag3-out 0.3s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+.my-super-cool-btn .dot:nth-child(4) {
+  bottom: 50px;
+  right: 50px;
+  transform: rotate(-140deg);
+  animation: swag4-out 0.3s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+}
+
+.my-super-cool-btn:hover .dot:nth-child(1) {
+  animation: swag1 0.3s;
+  animation-fill-mode: forwards;
+}
+
+.my-super-cool-btn:hover .dot:nth-child(2) {
+  animation: swag2 0.3s;
+  animation-fill-mode: forwards;
+}
+
+.my-super-cool-btn:hover .dot:nth-child(3) {
+  animation: swag3 0.3s;
+  animation-fill-mode: forwards;
+}
+
+.my-super-cool-btn:hover .dot:nth-child(4) {
+  animation: swag4 0.3s;
+  animation-fill-mode: forwards;
+}
+
+/*
+ * Dots
+ */
+@keyframes intro {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes swag1 {
+  0% {
+    top: 50px;
+    left: 50px;
+    width: 8px;
+  }
+  50% {
+    width: 30px;
+    opacity: 1;
+  }
+  100% {
+    top: 10px;
+    left: 10px;
+    width: 8px;
+    opacity: 1;
+  }
+}
+@keyframes swag1-out {
+  0% {
+    top: 20px;
+    left: 20px;
+    width: 8px;
+  }
+  50% {
+    width: 30px;
+    opacity: 1;
+  }
+  100% {
+    top: 50px;
+    left: 50px;
+    width: 8px;
+    opacity: 0;
+  }
+}
+@keyframes swag2 {
+  0% {
+    top: 50px;
+    right: 50px;
+    width: 8px;
+  }
+  50% {
+    width: 30px;
+    opacity: 1;
+  }
+  100% {
+    top: 10px;
+    right: 10px;
+    width: 8px;
+    opacity: 1;
+  }
+}
+@keyframes swag2-out {
+  0% {
+    top: 20px;
+    right: 20px;
+    width: 8px;
+  }
+  50% {
+    width: 30px;
+    opacity: 1;
+  }
+  100% {
+    top: 50px;
+    right: 50px;
+    width: 8px;
+    opacity: 0;
+  }
+}
+@keyframes swag3 {
+  0% {
+    bottom: 50px;
+    left: 50px;
+    width: 8px;
+  }
+  50% {
+    width: 30px;
+    opacity: 1;
+  }
+  100% {
+    bottom: 10px;
+    left: 10px;
+    width: 8px;
+    opacity: 1;
+  }
+}
+@keyframes swag3-out {
+  0% {
+    bottom: 20px;
+    left: 20px;
+    width: 8px;
+  }
+  50% {
+    width: 30px;
+    opacity: 1;
+  }
+  100% {
+    bottom: 50px;
+    left: 50px;
+    width: 8px;
+    opacity: 0;
+  }
+}
+@keyframes swag4 {
+  0% {
+    bottom: 50px;
+    right: 50px;
+    width: 8px;
+  }
+  50% {
+    width: 30px;
+    opacity: 1;
+  }
+  100% {
+    bottom: 10px;
+    right: 10px;
+    width: 8px;
+    opacity: 1;
+  }
+}
+@keyframes swag4-out {
+  0% {
+    bottom: 20px;
+    right: 20px;
+    width: 8px;
+  }
+  50% {
+    width: 30px;
+    opacity: 1;
+  }
+  100% {
+    bottom: 50px;
+    right: 50px;
+    width: 8px;
+    opacity: 0;
+  }
+}
 body {
   height: 100%;
   /*overflow-y: hidden;

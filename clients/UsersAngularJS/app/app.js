@@ -8,7 +8,7 @@ angular.module('Sacrum', [
   'Home',
   'UserInfo',
   'UserHttp',
-  'draggableModule'
+  'Carousel'
 ]).
   config([
     '$locationProvider',
